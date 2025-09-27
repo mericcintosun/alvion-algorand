@@ -19,11 +19,9 @@ import PolicyGuard from './components/PolicyGuard'
 
 // AI ChatBot
 import ChatBot from './components/ChatBot'
-import CommandBox from './components/ai/CommandBox'
 
-// Portfolio components
-import PortfolioCard from './components/portfolio/PortfolioCard'
-import PortfolioList from './components/portfolio/PortfolioList'
+// AI Flow Panel
+import AIFlowPanel from './components/AIFlowPanel'
 
 interface HomeProps {}
 
@@ -39,15 +37,22 @@ const Home: React.FC<HomeProps> = () => {
   const { activeAddress } = useWallet()
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-gray-100 flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#242424', color: '#ffffff' }}>
       {/* ---------------- Navbar ---------------- */}
-      <nav className="w-full bg-neutral-800 border-b border-neutral-700 px-6 py-4 flex items-center justify-between">
-        <h1 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-500">
+      <nav
+        className="w-full px-6 py-4 flex items-center justify-between"
+        style={{ backgroundColor: '#2a2a2a', borderBottom: '1px solid #404040' }}
+      >
+        <h1
+          className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r"
+          style={{ backgroundImage: 'linear-gradient(to right, #f95001, #08c2b4)' }}
+        >
           Algorand dApp Gateway
         </h1>
         <div className="flex items-center gap-3">
           <button
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-sm font-semibold text-white transition"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-300 hover:scale-105"
+            style={{ backgroundColor: '#5a0c6e' }}
             onClick={() => setOpenChatBotModal(true)}
           >
             <div className="text-lg">
@@ -56,10 +61,11 @@ const Home: React.FC<HomeProps> = () => {
             <span>AI Assistant</span>
           </button>
           <button
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 text-sm font-semibold text-gray-100 transition"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-300 hover:scale-105"
+            style={{ backgroundColor: '#08c2b4' }}
             onClick={() => setOpenWalletModal(true)}
           >
-            <div className="text-lg text-cyan-400">
+            <div className="text-lg">
               <BsWallet2 />
             </div>
             <span>{activeAddress ? 'Wallet Connected' : 'Connect Wallet'}</span>
@@ -68,8 +74,11 @@ const Home: React.FC<HomeProps> = () => {
       </nav>
 
       {/* ---------------- Hero Section ---------------- */}
-      <header className="text-center py-10 px-4">
-        <h2 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-500 mb-4">
+      <header className="text-center py-8 px-4">
+        <h2
+          className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r mb-4"
+          style={{ backgroundImage: 'linear-gradient(to right, #f95001, #08c2b4)' }}
+        >
           Explore Algorand on TestNet
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
@@ -80,20 +89,8 @@ const Home: React.FC<HomeProps> = () => {
 
       {/* ---------------- Features Grid ---------------- */}
       <main className="flex-1 px-6 pb-12">
-        {/* AI Command Box - Always visible */}
-        <div className="max-w-4xl mx-auto mb-8">
-          <CommandBox />
-        </div>
-
-        {/* Portfolio Section - Show when wallet connected */}
-        {activeAddress && (
-          <div className="max-w-4xl mx-auto mb-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <PortfolioCard address={activeAddress} />
-              <PortfolioList address={activeAddress} />
-            </div>
-          </div>
-        )}
+        {/* AI Flow Panel - Main interface */}
+        <AIFlowPanel />
 
         {activeAddress ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
