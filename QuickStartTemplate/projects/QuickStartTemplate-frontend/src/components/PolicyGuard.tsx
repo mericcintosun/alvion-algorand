@@ -49,12 +49,8 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
         onUpdate: OnUpdate.AppendApp,
         createParams: {
           method: 'init',
-          args: [
-            BigInt(maxFee),
-            BigInt(maxAmount),
-            BigInt(maxSlippage)
-          ]
-        }
+          args: [BigInt(maxFee), BigInt(maxAmount), BigInt(maxSlippage)],
+        },
       })
 
       if (deployResult) {
@@ -84,13 +80,13 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
       })
 
       const appClient = factory.getAppClientById({ appId: BigInt(parseInt(appId)) })
-      
+
       await appClient.send.updatePolicy({
         args: {
           maxFee: BigInt(maxFee),
           maxAmount: BigInt(maxAmount),
-          maxSlipBps: BigInt(maxSlippage)
-        }
+          maxSlipBps: BigInt(maxSlippage),
+        },
       })
 
       enqueueSnackbar('Policy updated successfully!', { variant: 'success' })
@@ -116,14 +112,14 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
       })
 
       const appClient = factory.getAppClientById({ appId: BigInt(parseInt(appId)) })
-      
+
       await appClient.send.setAllowedApps({
         args: {
           folksDeposit: BigInt(parseInt(folksDeposit) || 0),
           folksStaking: BigInt(parseInt(folksStaking) || 0),
           tinymanRouter: BigInt(parseInt(tinymanRouter) || 0),
           tinymanPool: BigInt(parseInt(tinymanPool) || 0),
-        }
+        },
       })
 
       enqueueSnackbar('Allowed apps updated successfully!', { variant: 'success' })
@@ -149,7 +145,7 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
       })
 
       const appClient = factory.getAppClientById({ appId: BigInt(parseInt(appId)) })
-      
+
       await appClient.send.enforce({ args: {} })
 
       enqueueSnackbar('Policy enforcement check completed successfully!', { variant: 'success' })
@@ -161,31 +157,34 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
   }
 
   return (
-    <dialog
-      id="policyguard_modal"
-      className={`modal modal-bottom sm:modal-middle backdrop-blur-sm ${openModal ? 'modal-open' : ''}`}
-    >
+    <dialog id="policyguard_modal" className={`modal modal-bottom sm:modal-middle backdrop-blur-sm ${openModal ? 'modal-open' : ''}`}>
       <div className="modal-box bg-neutral-800 text-gray-100 rounded-2xl shadow-xl border border-neutral-700 p-6 max-w-4xl">
         <h3 className="flex items-center gap-3 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-500 mb-6">
-          <div className="text-3xl"><AiOutlineSecurityScan /></div>
+          <div className="text-3xl">
+            <AiOutlineSecurityScan />
+          </div>
           Policy Guard Management
         </h3>
 
         <div className="bg-neutral-700 p-4 rounded-xl mb-6">
-          <p className="flex items-center gap-2 text-sm text-gray-400">
-            <div className="text-xl text-yellow-400"><AiOutlineWarning /></div>
-            Policy Guard kontratı ile güvenlik politikalarını yönetin ve uygulayın.
-          </p>
+          <div className="flex items-center gap-2 text-sm text-gray-400">
+            <div className="text-xl text-yellow-400">
+              <AiOutlineWarning />
+            </div>
+            <span>Policy Guard kontratı ile güvenlik politikalarını yönetin ve uygulayın.</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Deploy Section */}
           <div className="space-y-4">
             <h4 className="text-lg font-semibold text-cyan-400 flex items-center gap-2">
-              <div className="text-xl"><AiOutlineSetting /></div>
+              <div className="text-xl">
+                <AiOutlineSetting />
+              </div>
               Deploy Policy Guard
             </h4>
-            
+
             <div className="space-y-3">
               <div className="form-control">
                 <label className="label">
@@ -233,7 +232,9 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
               >
                 {deployLoading ? (
                   <span className="flex items-center gap-2">
-                    <div className="animate-spin"><AiOutlineLoading3Quarters /></div>
+                    <div className="animate-spin">
+                      <AiOutlineLoading3Quarters />
+                    </div>
                     Deploying...
                   </span>
                 ) : (
@@ -246,7 +247,7 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
           {/* App ID Section */}
           <div className="space-y-4">
             <h4 className="text-lg font-semibold text-purple-400">App ID</h4>
-            
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text text-gray-400">Policy Guard App ID</span>
@@ -268,7 +269,9 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
               >
                 {updateLoading ? (
                   <span className="flex items-center gap-2">
-                    <div className="animate-spin"><AiOutlineLoading3Quarters /></div>
+                    <div className="animate-spin">
+                      <AiOutlineLoading3Quarters />
+                    </div>
                     Updating...
                   </span>
                 ) : (
@@ -283,7 +286,9 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
-                    <div className="animate-spin"><AiOutlineLoading3Quarters /></div>
+                    <div className="animate-spin">
+                      <AiOutlineLoading3Quarters />
+                    </div>
                     Checking...
                   </span>
                 ) : (
@@ -297,7 +302,7 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
         {/* Allowed Apps Section */}
         <div className="mt-6 space-y-4">
           <h4 className="text-lg font-semibold text-orange-400">Allowed Applications</h4>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
@@ -352,14 +357,12 @@ const PolicyGuard = ({ openModal, setModalState }: PolicyGuardInterface) => {
             </div>
           </div>
 
-          <button
-            className="btn w-full bg-purple-500 hover:bg-purple-600 text-white"
-            onClick={setAllowedApps}
-            disabled={loading || !appId}
-          >
+          <button className="btn w-full bg-purple-500 hover:bg-purple-600 text-white" onClick={setAllowedApps} disabled={loading || !appId}>
             {loading ? (
               <span className="flex items-center gap-2">
-                <div className="animate-spin"><AiOutlineLoading3Quarters /></div>
+                <div className="animate-spin">
+                  <AiOutlineLoading3Quarters />
+                </div>
                 Setting Apps...
               </span>
             ) : (

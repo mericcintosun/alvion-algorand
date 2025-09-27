@@ -19,6 +19,11 @@ import PolicyGuard from './components/PolicyGuard'
 
 // AI ChatBot
 import ChatBot from './components/ChatBot'
+import CommandBox from './components/ai/CommandBox'
+
+// Portfolio components
+import PortfolioCard from './components/portfolio/PortfolioCard'
+import PortfolioList from './components/portfolio/PortfolioList'
 
 interface HomeProps {}
 
@@ -75,6 +80,21 @@ const Home: React.FC<HomeProps> = () => {
 
       {/* ---------------- Features Grid ---------------- */}
       <main className="flex-1 px-6 pb-12">
+        {/* AI Command Box - Always visible */}
+        <div className="max-w-4xl mx-auto mb-8">
+          <CommandBox />
+        </div>
+
+        {/* Portfolio Section - Show when wallet connected */}
+        {activeAddress && (
+          <div className="max-w-4xl mx-auto mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <PortfolioCard address={activeAddress} />
+              <PortfolioList address={activeAddress} />
+            </div>
+          </div>
+        )}
+
         {activeAddress ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {/* Send Payment */}

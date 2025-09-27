@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { config } from "./utils/config.js";
 import chatRoutes from "./routes/chat.js";
+import aiRoutes from "./routes/aiRoutes.js";
 import corsMiddleware from "./middleware/cors.js";
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api", chatRoutes);
+app.use("/ai", aiRoutes);
 
 // Root endpoint
 app.get("/", (req, res) => {
@@ -23,6 +25,11 @@ app.get("/", (req, res) => {
       health: "/api/health",
       chat: "/api/chat",
       stream: "/api/chat/stream",
+      ai: {
+        parse: "/ai/parse",
+        plan: "/ai/plan",
+        health: "/ai/health"
+      }
     },
   });
 });

@@ -70,21 +70,25 @@ const AppCalls = ({ openModal, setModalState }: AppCallsInterface) => {
   }
 
   return (
-    <dialog
-      id="appcalls_modal"
-      className={`modal modal-bottom sm:modal-middle backdrop-blur-sm ${openModal ? 'modal-open' : ''}`}
-    >
+    <dialog id="appcalls_modal" className={`modal modal-bottom sm:modal-middle backdrop-blur-sm ${openModal ? 'modal-open' : ''}`}>
       <div className="modal-box bg-neutral-800 text-gray-100 rounded-2xl shadow-xl border border-neutral-700 p-6">
         <h3 className="flex items-center gap-3 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-500 mb-6">
-          <div className="text-3xl"><AiOutlineDeploymentUnit /></div>
+          <div className="text-3xl">
+            <AiOutlineDeploymentUnit />
+          </div>
           Smart Contract Interaction
         </h3>
 
         <div className="bg-neutral-700 p-4 rounded-xl mb-6">
-          <p className="flex items-center gap-2 text-sm text-gray-400">
-            <div className="text-xl text-yellow-400"><AiOutlineWarning /></div>
-            **Note:** This demo deploys the contract on the frontend. In a production scenario, you would typically deploy it via a backend and reference it by ID.
-          </p>
+          <div className="flex items-center gap-2 text-sm text-gray-400">
+            <div className="text-xl text-yellow-400">
+              <AiOutlineWarning />
+            </div>
+            <span>
+              **Note:** This demo deploys the contract on the frontend. In a production scenario, you would typically deploy it via a
+              backend and reference it by ID.
+            </span>
+          </div>
         </div>
 
         <div className="form-control">
@@ -121,7 +125,9 @@ const AppCalls = ({ openModal, setModalState }: AppCallsInterface) => {
           >
             {loading ? (
               <span className="flex items-center gap-2">
-                <div className="animate-spin"><AiOutlineLoading3Quarters /></div>
+                <div className="animate-spin">
+                  <AiOutlineLoading3Quarters />
+                </div>
                 Sending...
               </span>
             ) : (
