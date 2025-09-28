@@ -1,5 +1,7 @@
 # Alvion — AI‑Powered DeFi Copilot on Algorand
 
+[Project Documentation](https://drive.google.com/file/d/1jbpKsventmFZ0QcbebbN7oz56JzHCBhR/view?usp=sharing)
+
 Alvion is an AI‑powered DeFi copilot and agentic rebalancer built on Algorand. It turns natural‑language intents into safe, automated DeFi actions across staking and DEX protocols, continuously monitoring and rebalancing portfolios under explicit security constraints.
 
 - Core promise: "Manage DeFi with natural language; your AI agent executes safely and optimizes continuously."
