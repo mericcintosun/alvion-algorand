@@ -15,7 +15,7 @@ const AIFlowPanel: React.FC<AIFlowPanelProps> = ({ onCommandParsed, onPlanGenera
   const { activeAddress } = useWallet()
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8 p-4 sm:p-6 md:p-8" style={{ backgroundColor: '#ffffff', minHeight: '100vh' }}>
+    <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8 p-2 sm:p-4 md:p-6 lg:p-8" style={{ backgroundColor: '#ffffff', minHeight: '100vh' }}>
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <h1

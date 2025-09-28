@@ -84,14 +84,11 @@ const Home: React.FC<HomeProps> = () => {
           Alvion
         </h1>
         <h2
-          className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mb-3 sm:mb-4 font-heading text-white px-2"
+          className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-6 sm:mb-8 font-heading text-white px-2 leading-tight"
           style={{ color: '#ffffff' }}
         >
-          Natural Language DeFi Copilot + Agentic Rebalancer
+          AI-powered DeFi management with natural language commands and automated rebalancing.
         </h2>
-        <p className="text-sm sm:text-base md:text-lg max-w-4xl mx-auto mb-6 sm:mb-8 text-white px-2" style={{ color: '#ffffff' }}>
-          Alvion built an AI Rebalancer that lets Web3 users manage DeFi simply and securely with natural language and automated rebalancing.
-        </p>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
           <button
             className="px-6 sm:px-8 py-3 sm:py-4 rounded-full text-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:opacity-90 w-full sm:w-auto"
@@ -250,12 +247,12 @@ const Home: React.FC<HomeProps> = () => {
           <div className="text-xs sm:text-sm text-white text-center" style={{ color: '#ffffff' }}>
             © {new Date().getFullYear()} Alvion • Manage DeFi with natural language.
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-white" style={{ color: '#ffffff' }}>
-            <a className="hover:underline" href="#">Folks Finance</a>
-            <a className="hover:underline" href="#">Tinyman Router</a>
-            <a className="hover:underline" href="#">Pera Connect</a>
-            <a className="hover:underline" href="#">AlgoKit TS</a>
-          </div>
+           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-white" style={{ color: '#ffffff' }}>
+             <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://folks.finance/" target="_blank" rel="noopener noreferrer">Folks Finance</a>
+             <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://tinyman.org/" target="_blank" rel="noopener noreferrer">Tinyman</a>
+             <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://perawallet.app/" target="_blank" rel="noopener noreferrer">Pera Wallet</a>
+             <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://algorand.co/algokit" target="_blank" rel="noopener noreferrer">AlgoKit</a>
+           </div>
         </div>
       </footer>
 
