@@ -15,6 +15,15 @@ export async function setAllowedApps({ creatorAddr, signer }: { creatorAddr: str
   const tinymanValidator = BigInt(getTinymanValidatorAppId())
   const tinymanPool = BigInt(0) // pool App yok; V2'de pool hesapları LogicSig, 0 geç
 
+  // eslint-disable-next-line no-console
+  console.log('App IDs:', {
+    guardAppId: Number(guardAppId),
+    folksDistributor: Number(folksDistributor),
+    folksStaking: Number(folksStaking),
+    tinymanValidator: Number(tinymanValidator),
+    tinymanPool: Number(tinymanPool),
+  })
+
   const algodConfig = getAlgodConfigFromViteEnvironment()
   const indexerConfig = getIndexerConfigFromViteEnvironment()
   const algorand = AlgorandClient.fromConfig({
@@ -91,9 +100,9 @@ export async function checkPolicyGuardState({ creatorAddr, signer }: { creatorAd
       console.log('✅ Folks app ID is properly configured in PolicyGuard')
     } else {
       // eslint-disable-next-line no-console
-      console.log('⚠️ Folks app ID is NOT configured in PolicyGuard. Skipping setup in test mode...')
-      // Test modunda PolicyGuard setup'ını atla
-      // await setAllowedApps({ creatorAddr, signer })
+      console.log('⚠️ Folks app ID is NOT configured in PolicyGuard. Setting up now...')
+      // PolicyGuard setup'ını yap
+      await setAllowedApps({ creatorAddr, signer })
     }
   } catch (error) {
     // eslint-disable-next-line no-console

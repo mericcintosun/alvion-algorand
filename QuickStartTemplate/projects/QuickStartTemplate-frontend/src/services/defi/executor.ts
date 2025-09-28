@@ -39,40 +39,32 @@ export async function executePlan(
         case 'STAKE':
           console.log('Processing STAKE operation:', step.params)
           if (step.params.proto === 'FOLKS') {
-            // TEST MODUNDA STAKE İŞLEMİNİ ATLA
-            console.log('⚠️ Skipping STAKE operation in test mode due to smart contract issues')
-            result = { 
-              success: true, 
-              txId: 'test-mode-skip',
-              message: 'STAKE operation skipped in test mode - Folks Finance smart contract requires proper configuration'
+            try {
+              const amount = parseAmount(step.params.amount || 'auto', sender)
+              console.log(`Executing STAKE operation with amount: ${amount}`)
+              console.log('Calling stakeAlgoForXAlgo with:', { sender, amountAlgo: amount, hasSigner: !!signer })
+
+              const res = await stakeAlgoForXAlgo({
+                sender,
+                amountAlgo: amount,
+                signer,
+              })
+
+              console.log('stakeAlgoForXAlgo returned:', res)
+              result = { success: true, txId: res.txIDs?.[0] }
+              console.log('STAKE operation completed successfully')
+            } catch (stakeError) {
+              console.error('STAKE operation failed:', stakeError)
+              console.error('Error details:', {
+                name: stakeError instanceof Error ? stakeError.name : 'Unknown',
+                message: stakeError instanceof Error ? stakeError.message : 'Unknown error',
+                stack: stakeError instanceof Error ? stakeError.stack : 'No stack trace',
+              })
+              result = {
+                success: false,
+                error: stakeError instanceof Error ? stakeError.message : 'STAKE operation failed',
+              }
             }
-            
-            // try {
-            //   const amount = parseAmount(step.params.amount || 'auto', sender)
-            //   console.log(`Executing STAKE operation with amount: ${amount}`)
-            //   console.log('Calling stakeAlgoForXAlgo with:', { sender, amountAlgo: amount, hasSigner: !!signer })
-
-            //   const res = await stakeAlgoForXAlgo({
-            //     sender,
-            //     amountAlgo: amount,
-            //     signer,
-            //   })
-
-            //   console.log('stakeAlgoForXAlgo returned:', res)
-            //   result = { success: true, txId: res.txIDs?.[0] }
-            //   console.log('STAKE operation completed successfully')
-            // } catch (stakeError) {
-            //   console.error('STAKE operation failed:', stakeError)
-            //   console.error('Error details:', {
-            //     name: stakeError instanceof Error ? stakeError.name : 'Unknown',
-            //     message: stakeError instanceof Error ? stakeError.message : 'Unknown error',
-            //     stack: stakeError instanceof Error ? stakeError.stack : 'No stack trace',
-            //   })
-            //   result = {
-            //     success: false,
-            //     error: stakeError instanceof Error ? stakeError.message : 'STAKE operation failed',
-            //   }
-            // }
           } else {
             console.log(`Unsupported protocol for STAKE: ${step.params.proto}`)
             result = { success: false, error: `Unsupported protocol: ${step.params.proto}` }
@@ -166,18 +158,16 @@ function getAssetId(assetSymbol: string): number {
 }
 
 export async function setupAllowedApps(creatorAddr: string, signer: algosdk.TransactionSigner): Promise<ExecutionResult> {
-  // TEST MODUNDA DEVRE DIŞI - PolicyGuard setup'ı atlanıyor
-  console.log('⚠️ Skipping PolicyGuard setup in test mode')
-  return { success: true, txId: 'test-mode-skip' }
-  
-  // try {
-  //   const res = await setAllowedApps({ creatorAddr, signer })
-  //   return { success: true, txId: res.txIds?.[0] }
-  // } catch (error) {
-  //   console.error('Setup error:', error)
-  //   return {
-  //     success: false,
-  //     error: error instanceof Error ? error.message : 'Setup failed',
-  //   }
-  // }
+  try {
+    console.log('Setting up PolicyGuard allowed apps...')
+    const res = await setAllowedApps({ creatorAddr, signer })
+    console.log('PolicyGuard setup completed successfully')
+    return { success: true, txId: res.txIds?.[0] }
+  } catch (error) {
+    console.error('Setup error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Setup failed',
+    }
+  }
 }
