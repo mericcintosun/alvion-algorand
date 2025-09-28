@@ -1,5 +1,6 @@
 import algosdk from 'algosdk'
 import { getAlgodClient } from '../../utils/network/getAlgoClientConfigs'
+import { getPolicyGuardAppId } from '../../config/folks'
 
 const ALGOD = getAlgodClient()
 
@@ -12,7 +13,7 @@ const ALGOD = getAlgodClient()
  * @returns PolicyGuard.enforce() ile genişletilmiş yeni grup
  */
 export async function addGuardEnforce({ sender, group }: { sender: string; group: algosdk.Transaction[] }): Promise<algosdk.Transaction[]> {
-  const guardAppId = Number(import.meta.env.VITE_POLICY_GUARD_APP_ID || '746499797')
+  const guardAppId = getPolicyGuardAppId()
 
   // Validate that we have a valid app ID
   if (!guardAppId || guardAppId === 0) {

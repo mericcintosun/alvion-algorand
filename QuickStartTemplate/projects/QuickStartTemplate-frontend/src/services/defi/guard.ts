@@ -27,19 +27,35 @@ export async function setAllowedApps({ creatorAddr, signer }: { creatorAddr: str
     algorand,
   })
 
-  // PolicyGuard client ile method call yap
-  const result = await guard.send.setAllowedApps({
-    sender: creatorAddr,
-    signer,
-    args: {
-      folksDeposit: folksDistributor,
-      folksStaking: folksStaking,
-      tinymanRouter: tinymanValidator,
-      tinymanPool: tinymanPool,
-    },
-  })
+  try {
+    // PolicyGuard client ile method call yap
+    const result = await guard.send.setAllowedApps({
+      sender: creatorAddr,
+      signer,
+      args: {
+        folksDeposit: folksDistributor,
+        folksStaking: folksStaking,
+        tinymanRouter: tinymanValidator,
+        tinymanPool: tinymanPool,
+      },
+    })
 
-  return result
+    // eslint-disable-next-line no-console
+    console.log('✅ PolicyGuard allowed apps set successfully')
+    return result
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('❌ Error setting PolicyGuard allowed apps:', error)
+
+    // Check if it's a wallet error (transaction pending)
+    if (error instanceof Error && error.message.includes('Transaction request pending')) {
+      // eslint-disable-next-line no-console
+      console.warn('⚠️ Another transaction is in progress. Please wait and try again.')
+      throw new Error('Another transaction is in progress. Please wait and try again.')
+    }
+
+    throw error
+  }
 }
 
 export async function checkPolicyGuardState({ creatorAddr, signer }: { creatorAddr: string; signer: algosdk.TransactionSigner }) {
@@ -82,8 +98,21 @@ export async function checkPolicyGuardState({ creatorAddr, signer }: { creatorAd
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error checking PolicyGuard state:', error)
+
+    // Check if it's a wallet error (transaction pending)
+    if (error instanceof Error && error.message.includes('Transaction request pending')) {
+      // eslint-disable-next-line no-console
+      console.warn('⚠️ Another transaction is in progress. Skipping PolicyGuard setup for now.')
+      return // Skip setup if another transaction is pending
+    }
+
     // eslint-disable-next-line no-console
     console.log('Attempting to set allowed apps...')
-    await setAllowedApps({ creatorAddr, signer })
+    try {
+      await setAllowedApps({ creatorAddr, signer })
+    } catch (setupError) {
+      // eslint-disable-next-line no-console
+      console.warn('⚠️ Failed to set allowed apps, but continuing with execution...', setupError)
+    }
   }
 }

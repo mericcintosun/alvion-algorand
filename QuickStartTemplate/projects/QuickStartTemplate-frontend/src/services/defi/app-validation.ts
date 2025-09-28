@@ -1,6 +1,6 @@
 import algosdk from 'algosdk'
 import { getAlgodClient } from '../../utils/network/getAlgoClientConfigs'
-import { getNetwork } from '../../config/folks'
+import { getNetwork, getXAlgoDistributorAppId, getPolicyGuardAppId } from '../../config/folks'
 
 const ALGOD = getAlgodClient()
 
@@ -32,12 +32,12 @@ export async function validateAllApps(): Promise<void> {
   // eslint-disable-next-line no-console
   console.log(`🔍 Validating apps on ${network}...`)
 
-  // PolicyGuard app ID'sini kontrol et
-  const guardAppId = Number(import.meta.env.VITE_POLICY_GUARD_APP_ID || '746499797')
+  // PolicyGuard app ID'sini kontrol et - network-aware config kullan
+  const guardAppId = getPolicyGuardAppId()
   await assertAppExists(guardAppId)
 
-  // Folks xALGO distributor app ID'sini kontrol et
-  const folksAppId = Number(import.meta.env.VITE_FOLKS_XALGO_DISTRIBUTOR_APP_ID || '730430673')
+  // Folks xALGO distributor app ID'sini kontrol et - network-aware config kullan
+  const folksAppId = getXAlgoDistributorAppId()
   await assertAppExists(folksAppId)
 
   // eslint-disable-next-line no-console
