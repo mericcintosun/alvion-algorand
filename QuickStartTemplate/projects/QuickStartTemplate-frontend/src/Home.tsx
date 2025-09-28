@@ -696,22 +696,36 @@ Alvion lets Web3 users manage DeFi simply and securely with natural language and
 
       {/* ---------------- Footer ---------------- */}
       <footer
-        className="mt-auto px-4 sm:px-6 py-6 sm:py-10 bg-cover bg-center border-t"
+        className="mt-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 bg-cover bg-center border-t"
         style={{ backgroundImage: 'url(/background.png)', borderColor: '#e5e7eb' }}
       >
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <img src="/logo.svg" alt="Alvion" className="h-6 w-6 sm:h-8 sm:w-8" />
-            <span className="font-semibold font-serif-heading text-white text-sm sm:text-base" style={{ color: '#ffffff' }}>Alvion</span>
+        <div className="max-w-6xl mx-auto">
+          {/* Main Footer Content */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8 mb-8 sm:mb-12">
+            <div className="flex items-center gap-2 sm:gap-3">
+              
+            </div>
+            <div className="text-center sm:text-right">
+              <p className="text-white text-sm sm:text-base" style={{ color: '#ffffff' }}>
+                © {new Date().getFullYear()} Alvion • Manage DeFi with natural language.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-white" style={{ color: '#ffffff' }}>
+              <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://folks.finance/" target="_blank" rel="noopener noreferrer">Folks Finance</a>
+              <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://tinyman.org/" target="_blank" rel="noopener noreferrer">Tinyman</a>
+              <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://perawallet.app/" target="_blank" rel="noopener noreferrer">Pera Wallet</a>
+              <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://algorand.co/algokit" target="_blank" rel="noopener noreferrer">AlgoKit</a>
+            </div>
           </div>
-          <div className="text-xs sm:text-sm text-white text-center" style={{ color: '#ffffff' }}>
-            © {new Date().getFullYear()} Alvion • Manage DeFi with natural language.
-          </div>
-           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-white" style={{ color: '#ffffff' }}>
-             <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://folks.finance/" target="_blank" rel="noopener noreferrer">Folks Finance</a>
-             <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://tinyman.org/" target="_blank" rel="noopener noreferrer">Tinyman</a>
-             <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://perawallet.app/" target="_blank" rel="noopener noreferrer">Pera Wallet</a>
-             <a className="hover:underline transition-all duration-200 hover:text-blue-200" href="https://algorand.co/algokit" target="_blank" rel="noopener noreferrer">AlgoKit</a>
+          
+          {/* Large Alvion Text */}
+          <div className="text-center">
+            <h2 
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold font-serif-heading text-white "
+              style={{ color: '#ffffff' }}
+            >
+              ALVION
+            </h2>
           </div>
         </div>
       </footer>
