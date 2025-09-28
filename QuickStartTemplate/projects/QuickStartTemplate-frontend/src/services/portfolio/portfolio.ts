@@ -29,7 +29,7 @@ export async function getPortfolio(address: string): Promise<Holding[]> {
   // ASA'lar
   const assets = acc.account.assets || []
   for (const a of assets) {
-    const id = a['asset-id']
+    const id = Number(a.assetId)
     if (!id || id === 0) continue // Skip invalid asset IDs
 
     try {

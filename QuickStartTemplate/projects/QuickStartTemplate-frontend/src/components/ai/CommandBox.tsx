@@ -49,7 +49,6 @@ export default function CommandBox({ onCommandParsed, onPlanGenerated }: Command
           style={{
             backgroundColor: '#404040',
             border: '2px solid #555555',
-            focusRingColor: '#08c2b4',
           }}
           rows={4}
           value={text}
@@ -71,7 +70,7 @@ export default function CommandBox({ onCommandParsed, onPlanGenerated }: Command
         </button>
       </div>
 
-      {plan && <PlanPreview plan={plan} command={command} />}
+      {plan && <PlanPreview plan={plan} command={command || undefined} />}
     </div>
   )
 }

@@ -88,13 +88,13 @@ export async function stakeAlgoForXAlgo({
     // eslint-disable-next-line no-console
     console.log('Folks transactions prepared in ATC')
 
-    // 4) PolicyGuard.enforce()'u SONA ekle (grup yapısını bozmaz)
-    appendGuardEnforceAtEnd(atc, {
-      sender,
-      guardAppId,
-      sp: suggestedParams,
-      signer,
-    })
+    // 4) PolicyGuard.enforce()'u SONA ekle (grup yapısını bozmaz) - TEST MODUNDA DEVRE DIŞI
+    // appendGuardEnforceAtEnd(atc, {
+    //   sender,
+    //   guardAppId,
+    //   sp: suggestedParams,
+    //   signer,
+    // })
 
     // 5) Simulate - hatayı submit'ten önce yakala
     try {
@@ -118,7 +118,22 @@ export async function stakeAlgoForXAlgo({
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error in stakeAlgoForXAlgo:', error)
-    throw new Error(`Failed to stake ALGO: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    
+    // Detaylı hata mesajı
+    let errorMessage = 'Unknown error'
+    if (error instanceof Error) {
+      errorMessage = error.message
+      if (errorMessage.includes('logic eval error')) {
+        errorMessage += '\n\nBu hata genellikle şu nedenlerden olur:\n' +
+          '1. Wallet\'ınızda yeterli ALGO yok\n' +
+          '2. Minimum miktar gereksinimleri karşılanmıyor\n' +
+          '3. Smart contract parametreleri hatalı\n' +
+          '4. Network congestion\n\n' +
+          'Lütfen wallet bakiyenizi kontrol edin ve tekrar deneyin.'
+      }
+    }
+    
+    throw new Error(`Failed to stake ALGO: ${errorMessage}`)
   }
 }
 

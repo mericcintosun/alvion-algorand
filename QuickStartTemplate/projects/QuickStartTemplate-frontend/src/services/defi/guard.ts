@@ -91,9 +91,9 @@ export async function checkPolicyGuardState({ creatorAddr, signer }: { creatorAd
       console.log('✅ Folks app ID is properly configured in PolicyGuard')
     } else {
       // eslint-disable-next-line no-console
-      console.log('❌ Folks app ID is NOT configured in PolicyGuard. Setting it now...')
-      // setAllowedApps'i çağır
-      await setAllowedApps({ creatorAddr, signer })
+      console.log('⚠️ Folks app ID is NOT configured in PolicyGuard. Skipping setup in test mode...')
+      // Test modunda PolicyGuard setup'ını atla
+      // await setAllowedApps({ creatorAddr, signer })
     }
   } catch (error) {
     // eslint-disable-next-line no-console

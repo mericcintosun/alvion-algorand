@@ -18,6 +18,7 @@ export async function simulateATC(atc: algosdk.AtomicTransactionComposer) {
 
     // algosdk v3 API kullanarak simulate et
     const simReq = new algosdk.modelsv2.SimulateRequest({
+      txnGroups: [], // Boş array - ATC kendi transaction'larını ekleyecek
       allowEmptySignatures: true,
       allowUnnamedResources: true,
       execTraceConfig: new algosdk.modelsv2.SimulateTraceConfig({ enable: true }),
@@ -26,7 +27,7 @@ export async function simulateATC(atc: algosdk.AtomicTransactionComposer) {
     const res = await atc.simulate(ALGOD, simReq)
 
     // Hangi tx fail etti, hangi AppID?
-    const txnResults = res.simulateTxnGroups?.[0]?.txnResults || []
+    const txnResults = res.simulateResponse?.txnGroups?.[0]?.txnResults || []
     let hasErrors = false
 
     txnResults.forEach((r: any, i: number) => {
@@ -59,5 +60,6 @@ export async function simulateATC(atc: algosdk.AtomicTransactionComposer) {
     // Simulation başarısız olsa bile devam et (fallback)
     // eslint-disable-next-line no-console
     console.warn('Continuing without simulation...')
+    return null
   }
 }
