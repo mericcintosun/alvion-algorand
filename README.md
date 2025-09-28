@@ -1,8 +1,8 @@
 # Alvion — AI‑Powered DeFi Copilot on Algorand
 
-Alvion is a Turkish‑first, AI‑powered DeFi copilot and agentic rebalancer built on Algorand. It turns natural‑language intents into safe, automated DeFi actions across staking and DEX protocols, continuously monitoring and rebalancing portfolios under explicit security constraints.
+Alvion is an AI‑powered DeFi copilot and agentic rebalancer built on Algorand. It turns natural‑language intents into safe, automated DeFi actions across staking and DEX protocols, continuously monitoring and rebalancing portfolios under explicit security constraints.
 
-- Core promise: “Manage DeFi by speaking Turkish; your AI agent executes safely and optimizes continuously.”
+- Core promise: "Manage DeFi with natural language; your AI agent executes safely and optimizes continuously."
 - Primary capabilities: Natural‑language DeFi, agentic rebalancing, portfolio tracking, policy‑guarded safety, Folks Finance liquid staking (xALGO), and Tinyman swaps.
 
 ## Contents
@@ -29,22 +29,22 @@ Algorand’s “Agentic Commerce” future needs an AI that can act safely and c
 
 ### Our Solution
 
-A Turkish‑first AI copilot that understands plain language, plans safe atomic transactions, executes under hard constraints, and keeps portfolios on target over time.
+An AI copilot that understands plain language, plans safe atomic transactions, executes under hard constraints, and keeps portfolios on target over time.
 
 ### What Changes for Users
 
-From clicking through arcane UIs to simply stating goals (e.g., “ALGO’larımı faize bağla, riski %5’i aşma”) and approving once.
+From clicking through arcane UIs to simply stating goals (e.g., "Stake my ALGO, don't exceed 0.5% slippage") and approving once.
 
 ## Key Features
 
-- AI DeFi Copilot (TR‑first): Execute DeFi actions with plain Turkish.
+- AI DeFi Copilot: Execute DeFi actions with natural language.
 - Agentic Rebalancer: Continuously monitors allocations; auto‑corrects deviations with small, safe trades.
 - PolicyGuard Safety: Transaction group size limits, fee caps, amount ceilings, slippage guard, and banned rekey/close operations.
 - DeFi Integrations:
   - Folks Finance: ALGO ↔ xALGO liquid staking
   - Tinyman: Best‑route swaps with slippage protection
 - Portfolio Tracking: Real‑time holdings, USD valuation, performance metrics.
-- Modern UX: Gradient theme (orange–blue), responsive design, real‑time feedback, Turkish interface.
+- Modern UX: Gradient theme (orange–blue), responsive design, real‑time feedback, intuitive interface.
 
 ## Architecture Overview
 
@@ -68,11 +68,11 @@ Frontend (React) → Backend (Express + Gemini) → Algorand (SDK + AlgoKit) →
 
 ## Natural‑Language Examples
 
-- “ALGO’larımı faize bağla, riski %5’i aşma.”
-- “0.5 ALGO’yu USDC’ye çevir.”
-- “Portföyümü %60 ALGO, %40 USDC yap.”
+- "Stake my ALGO, don't exceed 0.5% slippage."
+- "Swap 0.5 ALGO to USDC."
+- "Rebalance my portfolio to 60% ALGO, 40% USDC."
 
-Pipeline: Command parsing (TR) → plan synthesis → preview for user → single approval → atomic execution.
+Pipeline: Command parsing (EN) → plan synthesis → preview for user → single approval → atomic execution.
 
 ## Repository Structure
 
@@ -179,9 +179,9 @@ Phase 4 (Q4 2024)
 
 ## Landing Page Copy (Plug‑and‑Play)
 
-Hero Title: “Manage DeFi in Turkish. Your AI does the rest.”
+Hero Title: "Manage DeFi with Natural Language. Your AI does the rest."
 
-Subtext: “Stake, swap, and rebalance on Algorand with one approval—safely, automatically.”
+Subtext: "Stake, swap, and rebalance on Algorand with one approval—safely, automatically."
 
 Primary CTA: “Try the Copilot”
 
@@ -191,14 +191,14 @@ Trust Row: “Powered by Algorand • Integrates with Folks Finance & Tinyman”
 
 Feature Cards:
 
-- AI DeFi Copilot: “Say it in Turkish; get a safe, executable plan.”
+- AI DeFi Copilot: "Say it in natural language; get a safe, executable plan."
 - Agentic Rebalancer: “Stay on target. Continuous, small corrections.”
 - PolicyGuard Safety: “Limits on fees, amounts, and slippage. No rekey/close.”
 - Liquid Staking + DEX: “xALGO staking and swaps in one flow.”
 
 How It Works (3 steps):
 
-1. Describe your goal in Turkish
+1. Describe your goal in natural language
 2. Review & approve the plan
 3. Watch your portfolio update in real time
 

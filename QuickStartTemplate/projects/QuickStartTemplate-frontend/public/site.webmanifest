@@ -1,0 +1,35 @@
+{
+  "name": "Alvion — AI Rebalancer for DeFi",
+  "short_name": "Alvion",
+  "description": "Alvion built an AI Rebalancer that lets Web3 users manage DeFi simply and securely with natural language and automated rebalancing.",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#f97316",
+  "background_color": "#0f172a",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["finance", "productivity", "utilities"]
+}
