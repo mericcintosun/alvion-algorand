@@ -5,7 +5,7 @@ import { planFromCommand } from "../services/planner.js";
 
 const r = Router();
 
-// Türkçe serbest metni -> Komut JSON
+// English natural language -> Command JSON
 r.post("/parse", async (req, res) => {
   const { text } = req.body;
   try {

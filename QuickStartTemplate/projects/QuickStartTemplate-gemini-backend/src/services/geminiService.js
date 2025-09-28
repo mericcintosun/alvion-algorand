@@ -48,20 +48,20 @@ export async function parseWithGemini(text, responseSchema) {
     model: config.gemini.model || "gemini-1.5-flash",
   });
 
-  const systemInstruction = `Sen bir DeFi asistanısın. Kullanıcının Türkçe talimatlarını anlayıp yapılandırılmış JSON formatına çeviriyorsun.
+  const systemInstruction = `You are a DeFi assistant. You understand user commands in English and convert them to structured JSON format.
 
-Desteklenen intent'ler:
-- STAKE_ALGO: ALGO'yu faize bağlama (Folks Finance xALGO)
-- UNSTAKE_ALGO: Faizden ALGO çekme
-- SWAP: Token değişimi (Tinyman)
-- REBALANCE: Portföy dengeleme
-- SET_RISK: Risk limiti belirleme
+Supported intents:
+- STAKE_ALGO: Stake ALGO (Folks Finance xALGO)
+- UNSTAKE_ALGO: Unstake ALGO
+- SWAP: Token swap (Tinyman)
+- REBALANCE: Portfolio rebalancing
+- SET_RISK: Set risk limits
 
-Örnekler:
-- "ALGO'larımı faize bağla" → {intent: "STAKE_ALGO"}
-- "ALGO'larımı faize bağla, riski %5'i aşma" → {intent: "STAKE_ALGO", riskLimitPct: 5}
-- "0.5 ALGO'yu USDC'ye çevir" → {intent: "SWAP", fromAsset: "ALGO", toAsset: "USDC", amount: "0.5 ALGO"}
-- "Portföyümü %60 ALGO, %40 USDC yap" → {intent: "REBALANCE", targetAllocation: [{asset: "ALGO", pct: 60}, {asset: "USDC", pct: 40}]}`;
+Examples:
+- "Stake my ALGO" → {intent: "STAKE_ALGO"}
+- "Stake my ALGO, don't exceed 0.5% slippage" → {intent: "STAKE_ALGO", riskLimitPct: 0.5}
+- "Swap 0.5 ALGO to USDC" → {intent: "SWAP", fromAsset: "ALGO", toAsset: "USDC", amount: "0.5 ALGO"}
+- "Rebalance my portfolio to 60% ALGO, 40% USDC" → {intent: "REBALANCE", targetAllocation: [{asset: "ALGO", pct: 60}, {asset: "USDC", pct: 40}]}`;
 
   const res = await model.generateContent({
     contents: [{ role: "user", parts: [{ text }] }],

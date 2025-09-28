@@ -21,7 +21,7 @@ Alvion is an AI‑powered DeFi copilot and agentic rebalancer built on Algorand.
 
 ### The Problem
 
-DeFi is fragmented and complex; users juggle multiple apps (staking, swaps, portfolio) and jargon (APY, slippage, impermanent loss) and lack Turkish‑native guidance and safety.
+DeFi is fragmented and complex; users juggle multiple apps (staking, swaps, portfolio) and jargon (APY, slippage, impermanent loss) and lack native guidance and safety.
 
 ### Our Insight
 
@@ -144,7 +144,7 @@ Troubleshooting:
 ## Usage Walkthrough
 
 1. Connect wallet (Pera/Defly/Exodus).
-2. Open AI Copilot, type a natural‑language command in Turkish.
+2. Open AI Copilot, type a natural‑language command in English.
 3. Review the generated plan (steps, slippage, fees).
 4. Approve once; transactions execute atomically via PolicyGuard constraints.
 5. View updated portfolio and performance.
@@ -230,7 +230,7 @@ FAQ:
 
 - Propose features via issues (clear intent, user story, acceptance criteria).
 - Follow TypeScript, React, and Tailwind best practices.
-- Keep Turkish UX first; validate inputs; respect PolicyGuard limits.
+- Keep user experience first; validate inputs; respect PolicyGuard limits.
 
 ## License
 
