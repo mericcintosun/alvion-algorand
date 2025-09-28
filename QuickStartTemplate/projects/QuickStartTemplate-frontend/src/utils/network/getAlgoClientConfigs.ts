@@ -1,4 +1,5 @@
 import { AlgoViteClientConfig, AlgoViteKMDConfig } from '../../interfaces/network'
+import { Algodv2, Indexer } from 'algosdk'
 
 export function getAlgodConfigFromViteEnvironment(): AlgoViteClientConfig {
   if (!import.meta.env.VITE_ALGOD_SERVER) {
@@ -38,4 +39,14 @@ export function getKmdConfigFromViteEnvironment(): AlgoViteKMDConfig {
     wallet: import.meta.env.VITE_KMD_WALLET,
     password: import.meta.env.VITE_KMD_PASSWORD,
   }
+}
+
+export function getAlgodClient(): Algodv2 {
+  const config = getAlgodConfigFromViteEnvironment()
+  return new Algodv2(String(config.token || ''), config.server, config.port)
+}
+
+export function getIndexerClient(): Indexer {
+  const config = getIndexerConfigFromViteEnvironment()
+  return new Indexer(String(config.token || ''), config.server, config.port)
 }

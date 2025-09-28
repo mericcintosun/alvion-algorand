@@ -11,6 +11,7 @@ interface CommandBoxProps {
 export default function CommandBox({ onCommandParsed, onPlanGenerated }: CommandBoxProps) {
   const [text, setText] = useState("ALGO'larımı faize bağla, riski %5'i aşma")
   const [plan, setPlan] = useState<Plan | null>(null)
+  const [command, setCommand] = useState<Command | null>(null)
   const [loading, setLoading] = useState(false)
 
   const run = async () => {
@@ -18,6 +19,7 @@ export default function CommandBox({ onCommandParsed, onPlanGenerated }: Command
     try {
       const cmd = await parse(text)
       const p = await makePlan(cmd)
+      setCommand(cmd)
       setPlan(p)
 
       // Callback'leri çağır
@@ -69,7 +71,7 @@ export default function CommandBox({ onCommandParsed, onPlanGenerated }: Command
         </button>
       </div>
 
-      {plan && <PlanPreview plan={plan} />}
+      {plan && <PlanPreview plan={plan} command={command} />}
     </div>
   )
 }

@@ -4,8 +4,11 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { useSnackbar } from 'notistack'
-import { AiOutlineSend, AiOutlineLoading3Quarters, AiOutlineRobot, AiOutlineUser } from 'react-icons/ai'
+import { useWallet } from '@txnlab/use-wallet-react'
+import { AiOutlineSend, AiOutlineLoading3Quarters, AiOutlineRobot, AiOutlineUser, AiOutlineWallet } from 'react-icons/ai'
 import { askGemini, askGeminiStream, testBackendConnection } from '../services/api/geminiApi'
+import { parse, makePlan, type Command, type Plan } from '../services/ai/agent'
+import { executePlan, setupAllowedApps } from '../services/defi/executor'
 
 interface ChatBotProps {
   openModal: boolean
@@ -25,7 +28,7 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
       id: '1',
       type: 'assistant',
       content:
-        "Hello! I'm your Algorand & DeFi assistant. I can help you with blockchain concepts, smart contracts, NFTs, tokens, and more. How can I assist you today?",
+        "Hello! I'm your Algorand & DeFi assistant. I can help you with blockchain concepts, smart contracts, NFTs, tokens, and DeFi transactions. You can ask me to stake ALGO, swap tokens, or manage your portfolio. How can I assist you today?",
       timestamp: new Date(),
     },
   ])
@@ -33,8 +36,10 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [isStreaming, setIsStreaming] = useState(false)
   const [backendConnected, setBackendConnected] = useState(false)
+  const [isExecutingDeFi, setIsExecutingDeFi] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { enqueueSnackbar } = useSnackbar()
+  const { activeAddress, transactionSigner } = useWallet()
 
   // Test backend connection on component mount
   useEffect(() => {
@@ -53,13 +58,92 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const handleSendMessage = async (useStream = false) => {
-    if (!inputMessage.trim() || isLoading || isStreaming) return
+  // Check if message contains DeFi commands
+  const isDeFiCommand = (message: string): boolean => {
+    const defiKeywords = [
+      'stake',
+      'faize',
+      'faiz',
+      'bağla',
+      'bağlay',
+      'unstake',
+      'çek',
+      'çıkar',
+      'swap',
+      'çevir',
+      'değiştir',
+      'rebalance',
+      'denge',
+      'dengel',
+      'algo',
+      'usdc',
+      'usdt',
+      'xalgo',
+    ]
+    const lowerMessage = message.toLowerCase()
+    return defiKeywords.some((keyword) => lowerMessage.includes(keyword))
+  }
 
-    if (!backendConnected) {
-      enqueueSnackbar('Backend server not connected', { variant: 'error' })
+  // Execute DeFi command
+  const executeDeFiCommand = async (message: string) => {
+    if (!activeAddress || !transactionSigner) {
+      enqueueSnackbar("Wallet bağlantısı gerekli. Lütfen wallet'ı bağlayın.", { variant: 'error' })
       return
     }
+
+    setIsExecutingDeFi(true)
+
+    try {
+      // İlk önce allowed apps'i ayarla (PolicyGuard için gerekli)
+      console.log('Setting up allowed apps for ChatBot...')
+      const setupResult = await setupAllowedApps(activeAddress, transactionSigner)
+      if (!setupResult.success) {
+        console.error('Failed to setup allowed apps:', setupResult.error)
+      } else {
+        console.log('Allowed apps setup successful for ChatBot')
+      }
+
+      // Parse command
+      const command = await parse(message)
+
+      // Generate plan
+      const plan = await makePlan(command)
+
+      // Execute plan
+      const result = await executePlan(plan, command, activeAddress, transactionSigner)
+
+      if (result.success) {
+        const successMessage: Message = {
+          id: (Date.now() + 2).toString(),
+          type: 'assistant',
+          content: `✅ İşlem başarıyla tamamlandı!\n\nTransaction ID: ${result.txId}\n\nİşlem detayları:\n- Komut: ${command.intent}\n- Miktar: ${command.amount || 'auto'}\n- Protokol: ${command.intent.includes('STAKE') ? 'Folks Finance' : 'N/A'}`,
+          timestamp: new Date(),
+        }
+        setMessages((prev) => [...prev, successMessage])
+      } else {
+        const errorMessage: Message = {
+          id: (Date.now() + 2).toString(),
+          type: 'assistant',
+          content: `❌ İşlem hatası: ${result.error}\n\nLütfen tekrar deneyin veya farklı bir komut kullanın.`,
+          timestamp: new Date(),
+        }
+        setMessages((prev) => [...prev, errorMessage])
+      }
+    } catch (error) {
+      const errorMessage: Message = {
+        id: (Date.now() + 2).toString(),
+        type: 'assistant',
+        content: `❌ DeFi komut işlenirken hata oluştu: ${error instanceof Error ? error.message : 'Bilinmeyen hata'}\n\nLütfen tekrar deneyin.`,
+        timestamp: new Date(),
+      }
+      setMessages((prev) => [...prev, errorMessage])
+    } finally {
+      setIsExecutingDeFi(false)
+    }
+  }
+
+  const handleSendMessage = async (useStream = false) => {
+    if (!inputMessage.trim() || isLoading || isStreaming || isExecutingDeFi) return
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -69,14 +153,27 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
     }
 
     setMessages((prev) => [...prev, userMessage])
+    const messageText = inputMessage.trim()
     setInputMessage('')
+
+    // Check if it's a DeFi command
+    if (isDeFiCommand(messageText)) {
+      await executeDeFiCommand(messageText)
+      return
+    }
+
+    // Handle regular chat
+    if (!backendConnected) {
+      enqueueSnackbar('Backend server not connected', { variant: 'error' })
+      return
+    }
 
     if (useStream) {
       setIsStreaming(true)
-      await handleStreamingResponse(inputMessage.trim())
+      await handleStreamingResponse(messageText)
     } else {
       setIsLoading(true)
-      await handleRegularResponse(inputMessage.trim())
+      await handleRegularResponse(messageText)
     }
   }
 
@@ -175,6 +272,12 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
                   className={`w-3 h-3 rounded-full ${backendConnected ? 'bg-green-500' : 'bg-red-500'}`}
                   title={backendConnected ? 'Backend Connected' : 'Backend Disconnected'}
                 />
+                {activeAddress && (
+                  <div className="flex items-center gap-1 text-xs text-green-500">
+                    <AiOutlineWallet />
+                    <span>Wallet Connected</span>
+                  </div>
+                )}
                 <button onClick={clearChat} className="text-sm text-base-content/60 hover:text-primary transition-colors">
                   Clear Chat
                 </button>
@@ -216,7 +319,7 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask me about Algorand, DeFi, smart contracts, NFTs..."
+                  placeholder="Ask me about Algorand, DeFi, smart contracts, NFTs... or try '1 algo stake et'"
                   className="flex-1 p-3 bg-base-200 text-base-content border border-base-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary rounded-lg resize-none"
                   rows={2}
                   disabled={isLoading || isStreaming}
@@ -224,14 +327,14 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
                 <div className="flex flex-col gap-2">
                   <button
                     onClick={() => handleSendMessage(false)}
-                    disabled={!inputMessage.trim() || isLoading || isStreaming}
+                    disabled={!inputMessage.trim() || isLoading || isStreaming || isExecutingDeFi}
                     className="btn btn-primary text-white rounded-lg border-none font-semibold transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isLoading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <AiOutlineSend />}
+                    {isLoading || isExecutingDeFi ? <AiOutlineLoading3Quarters className="animate-spin" /> : <AiOutlineSend />}
                   </button>
                   <button
                     onClick={() => handleSendMessage(true)}
-                    disabled={!inputMessage.trim() || isLoading || isStreaming}
+                    disabled={!inputMessage.trim() || isLoading || isStreaming || isExecutingDeFi}
                     className="btn btn-secondary text-white rounded-lg border-none font-semibold transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-xs"
                   >
                     {isStreaming ? <AiOutlineLoading3Quarters className="animate-spin" /> : 'Stream'}
