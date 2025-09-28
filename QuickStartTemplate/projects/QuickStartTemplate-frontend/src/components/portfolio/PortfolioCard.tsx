@@ -52,7 +52,7 @@ export default function PortfolioCard({ address }: { address: string }) {
   const total = data.reduce((s, h) => s + (h.id === 0 ? h.amount : h.amount), 0) // basit toplam (fiat yok)
 
   return (
-    <div className="rounded-2xl p-6 shadow-lg space-y-4 border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+    <div className="rounded-2xl p-6 space-y-4 border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
       <div className="flex items-center gap-3 font-bold text-lg font-heading" style={{ color: '#2d2df1' }}>
         <div className="p-2 rounded-2xl" style={{ backgroundColor: '#2d2df1' }}>
           <AiOutlineWallet className="text-white" />

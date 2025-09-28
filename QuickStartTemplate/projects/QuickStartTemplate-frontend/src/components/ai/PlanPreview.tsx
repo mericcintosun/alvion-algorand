@@ -77,28 +77,28 @@ export default function PlanPreview({ plan, command }: PlanPreviewProps) {
   }
 
   return (
-    <div className="rounded-2xl p-6 shadow-lg border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
-      <div className="font-bold mb-4 text-lg flex items-center justify-between font-heading">
-        <div className="flex items-center gap-3" style={{ color: '#2d2df1' }}>
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#2d2df1' }}></div>
-          Transaction Preview
+    <div className="rounded-2xl p-4 sm:p-6 border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+      <div className="font-bold mb-3 sm:mb-4 text-base sm:text-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-heading">
+        <div className="flex items-center gap-2 sm:gap-3" style={{ color: '#2d2df1' }}>
+          <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full flex-shrink-0" style={{ backgroundColor: '#2d2df1' }}></div>
+          <span className="text-sm sm:text-base">Transaction Preview</span>
         </div>
 
         {command && activeAddress && (
           <button
             onClick={handleExecute}
             disabled={isExecuting}
-            className="flex items-center gap-2 px-4 py-2 rounded-2xl font-semibold text-white transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-2xl font-semibold text-white transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base w-full sm:w-auto justify-center"
             style={{ backgroundColor: isExecuting ? '#9ca3af' : '#2d2df1' }}
           >
             {isExecuting ? (
               <>
-                <AiOutlineLoading3Quarters className="animate-spin" />
+                <AiOutlineLoading3Quarters className="animate-spin text-sm sm:text-base" />
                 <span>Executing...</span>
               </>
             ) : (
               <>
-                <AiOutlineCaretRight />
+                <AiOutlineCaretRight className="text-sm sm:text-base" />
                 <span>Execute</span>
               </>
             )}
@@ -108,17 +108,17 @@ export default function PlanPreview({ plan, command }: PlanPreviewProps) {
 
       {executionResult && (
         <div
-          className={`mb-4 p-4 rounded-lg flex items-center gap-3 ${
+          className={`mb-3 sm:mb-4 p-3 sm:p-4 rounded-lg flex items-start sm:items-center gap-2 sm:gap-3 ${
             executionResult.success ? 'bg-green-900/30 border border-green-500' : 'bg-red-900/30 border border-red-500'
           }`}
         >
           {executionResult.success ? (
             <>
-              <AiOutlineCheck className="text-green-400 text-xl" />
-              <div>
-                <div className="text-green-400 font-semibold">Success!</div>
+              <AiOutlineCheck className="text-green-400 text-lg sm:text-xl flex-shrink-0 mt-0.5 sm:mt-0" />
+              <div className="min-w-0 flex-1">
+                <div className="text-green-400 font-semibold text-sm sm:text-base">Success!</div>
                 {executionResult.txId && (
-                  <div className="text-sm text-gray-300 font-mono">
+                  <div className="text-xs sm:text-sm text-gray-300 font-mono break-all">
                     TX: {executionResult.txId.slice(0, 8)}...{executionResult.txId.slice(-8)}
                   </div>
                 )}
@@ -126,27 +126,27 @@ export default function PlanPreview({ plan, command }: PlanPreviewProps) {
             </>
           ) : (
             <>
-              <AiOutlineClose className="text-red-400 text-xl" />
-              <div>
-                <div className="text-red-400 font-semibold">İşlem Hatası</div>
-                <div className="text-sm text-gray-300">{executionResult.error}</div>
+              <AiOutlineClose className="text-red-400 text-lg sm:text-xl flex-shrink-0 mt-0.5 sm:mt-0" />
+              <div className="min-w-0 flex-1">
+                <div className="text-red-400 font-semibold text-sm sm:text-base">İşlem Hatası</div>
+                <div className="text-xs sm:text-sm text-gray-300 break-words">{executionResult.error}</div>
               </div>
             </>
           )}
         </div>
       )}
 
-      <ol className="space-y-4">
+      <ol className="space-y-3 sm:space-y-4">
         {plan.steps.map((s, i) => (
-          <li key={i} className="flex items-start gap-4 p-4 rounded-2xl border" style={{ backgroundColor: '#f8fafc', borderColor: '#e5e7eb' }}>
+          <li key={i} className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl border" style={{ backgroundColor: '#f8fafc', borderColor: '#e5e7eb' }}>
             <div
-              className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold"
+              className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base"
               style={{ backgroundColor: '#2d2df1' }}
             >
               {i + 1}
             </div>
-            <div className="flex-1">
-              <div className="font-semibold mb-2" style={{ color: '#001324' }}>
+            <div className="flex-1 min-w-0">
+              <div className="font-semibold mb-2 text-sm sm:text-base" style={{ color: '#001324' }}>
                 {s.op === 'QUOTE' && 'Fiyat Sorgula'}
                 {s.op === 'STAKE' && 'ALGO Stake Et'}
                 {s.op === 'UNSTAKE' && 'ALGO Unstake Et'}
@@ -154,7 +154,7 @@ export default function PlanPreview({ plan, command }: PlanPreviewProps) {
                 {s.op === 'SET_POLICY' && 'Politika Ayarla'}
                 {s.op === 'PREVIEW' && 'Önizleme'}
               </div>
-              <code className="text-sm rounded-2xl px-3 py-2 block whitespace-pre-wrap" style={{ backgroundColor: '#e5e7eb', color: '#001324' }}>
+              <code className="text-xs sm:text-sm rounded-2xl px-2 sm:px-3 py-2 block whitespace-pre-wrap overflow-x-auto" style={{ backgroundColor: '#e5e7eb', color: '#001324' }}>
                 {JSON.stringify(s.params, null, 2)}
               </code>
             </div>

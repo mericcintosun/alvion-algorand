@@ -33,25 +33,25 @@ export default function CommandBox({ onCommandParsed, onPlanGenerated }: Command
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-4 mb-6">
-        <div className="p-3 rounded-full" style={{ backgroundColor: '#2d2df1' }}>
-          <AiOutlineRobot className="text-2xl text-white" />
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <div className="p-2 sm:p-3 rounded-full" style={{ backgroundColor: '#2d2df1' }}>
+          <AiOutlineRobot className="text-xl sm:text-2xl text-white" />
         </div>
-        <h3 className="text-2xl font-bold" style={{ color: '#2d2df1' }}>
+        <h3 className="text-lg sm:text-xl md:text-2xl font-bold" style={{ color: '#2d2df1' }}>
           Alvion AI Asistan
         </h3>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         <textarea
-          className="w-full rounded-2xl p-4 resize-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2"
+          className="w-full rounded-2xl p-3 sm:p-4 resize-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 text-sm sm:text-base"
           style={{
             backgroundColor: '#f8fafc',
             border: '2px solid #e5e7eb',
             color: '#001324',
           }}
-          rows={4}
+          rows={3}
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Describe what you want to do in natural language..."
@@ -59,15 +59,16 @@ export default function CommandBox({ onCommandParsed, onPlanGenerated }: Command
 
         <button
           onClick={run}
-          className="flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+          className="flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-2xl font-bold text-sm sm:text-base md:text-lg transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
           style={{
             backgroundColor: '#2d2df1',
             color: 'white',
           }}
           disabled={loading || !text.trim()}
         >
-          {loading ? <AiOutlineLoading3Quarters className="animate-spin text-xl" /> : <AiOutlineSend className="text-xl" />}
-          <span>{loading ? 'Processing...' : 'Parse Command & Plan'}</span>
+          {loading ? <AiOutlineLoading3Quarters className="animate-spin text-lg sm:text-xl" /> : <AiOutlineSend className="text-lg sm:text-xl" />}
+          <span className="hidden xs:inline">{loading ? 'Processing...' : 'Parse Command & Plan'}</span>
+          <span className="xs:hidden">{loading ? 'Processing...' : 'Parse'}</span>
         </button>
       </div>
 

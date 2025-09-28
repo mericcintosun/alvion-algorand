@@ -40,105 +40,106 @@ const Home: React.FC<HomeProps> = () => {
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#ffffff', color: '#001324' }}>
       {/* ---------------- Navbar ---------------- */}
       <nav
-        className="w-full px-6 py-4 flex items-center justify-between"
+        className="w-full px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0"
         style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb' }}
       >
-        <div className="flex items-center ">
-          <img src="/logo.svg" alt="Alvion" className="h-28 w-28" />
-         
+        <div className="flex items-center">
+          <img src="/logo.svg" alt="Alvion" className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:h-28 lg:w-28" />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 w-full sm:w-auto">
           <button
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:scale-105"
+            className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center"
             style={{ backgroundColor: '#2d2df1' }}
             onClick={() => setOpenChatBotModal(true)}
           >
-            <div className="text-lg">
+            <div className="text-base sm:text-lg">
               <AiOutlineRobot />
             </div>
-            <span>AI Assistant</span>
+            <span className="hidden xs:inline">AI Assistant</span>
+            <span className="xs:hidden">AI</span>
           </button>
           <button
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:scale-105"
+            className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center"
             style={{ backgroundColor: '#2d2df1' }}
             onClick={() => setOpenWalletModal(true)}
           >
-            <div className="text-lg">
+            <div className="text-base sm:text-lg">
               <BsWallet2 />
             </div>
-            <span>{activeAddress ? 'Wallet Connected' : 'Connect Wallet'}</span>
+            <span className="hidden sm:inline">{activeAddress ? 'Wallet Connected' : 'Connect Wallet'}</span>
+            <span className="sm:hidden">{activeAddress ? 'Connected' : 'Connect'}</span>
           </button>
         </div>
       </nav>
 
       {/* ---------------- Hero Section ---------------- */}
       <header
-        className="text-center py-16 px-4 bg-cover bg-center"
+        className="text-center py-8 sm:py-12 md:py-16 px-4 bg-cover bg-center"
         style={{ backgroundImage: 'url(/background.png)' }}
       >
         <h1
-          className="text-5xl sm:text-6xl font-bold mb-6 font-serif-heading text-white"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 font-serif-heading text-white"
           style={{ color: '#ffffff' }}
         >
           Alvion
         </h1>
         <h2
-          className="text-2xl sm:text-3xl font-semibold mb-4 font-heading text-white"
+          className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mb-3 sm:mb-4 font-heading text-white px-2"
           style={{ color: '#ffffff' }}
         >
           Natural Language DeFi Copilot + Agentic Rebalancer
         </h2>
-        <p className="text-lg max-w-4xl mx-auto mb-8 text-white" style={{ color: '#ffffff' }}>
-          "Manage DeFi by talking in English. Say ‘Stake my ALGOs, keep risk under 5%’ and let the AI agent handle the rest."
+        <p className="text-sm sm:text-base md:text-lg max-w-4xl mx-auto mb-6 sm:mb-8 text-white px-2" style={{ color: '#ffffff' }}>
+          Alvion built an AI Rebalancer that lets Web3 users manage DeFi simply and securely with natural language and automated rebalancing.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
           <button
-            className="px-8 py-4 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:opacity-90"
+            className="px-6 sm:px-8 py-3 sm:py-4 rounded-full text-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:opacity-90 w-full sm:w-auto"
             style={{ backgroundColor: '#2d2df1' }}
             onClick={() => setOpenWalletModal(true)}
           >
             Connect Wallet (Pera)
           </button>
         </div>
-        <div className="mt-12 max-w-3xl mx-auto">
-          <p className="text-sm text-white" style={{ color: '#ffffff' }}>
+        <div className="mt-8 sm:mt-12 max-w-3xl mx-auto px-4">
+          <p className="text-xs sm:text-sm text-white leading-relaxed" style={{ color: '#ffffff' }}>
             Alvion plans DeFi flows in natural language on Algorand, executes with a single confirmation, and continuously maintains portfolio allocation.
-            It offers an agentic transaction experience aligned with Algorand’s agentic commerce vision.
+            It offers an agentic transaction experience aligned with Algorand's agentic commerce vision.
           </p>
         </div>
       </header>
 
       {/* ---------------- How It Works ---------------- */}
-      <section className="py-16 px-4" style={{ backgroundColor: '#f8fafc' }}>
+      <section className="py-8 sm:py-12 md:py-16 px-4" style={{ backgroundColor: '#f8fafc' }}>
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 font-heading" style={{ color: '#001324' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 font-heading" style={{ color: '#001324' }}>
             How It Works
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white" style={{ backgroundColor: '#2d2df1' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="text-center p-4 sm:p-6">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center text-lg sm:text-2xl font-bold text-white" style={{ backgroundColor: '#2d2df1' }}>
                 1
               </div>
-              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Write a command</h3>
-              <p style={{ color: '#6b7280' }}>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 font-heading" style={{ color: '#001324' }}>Write a command</h3>
+              <p className="text-sm sm:text-base" style={{ color: '#6b7280' }}>
                 e.g. "Swap 0.5 ALGO to USDC", "Make my portfolio 60% ALGO / 40% USDC".
               </p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white" style={{ backgroundColor: '#2d2df1' }}>
+            <div className="text-center p-4 sm:p-6">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center text-lg sm:text-2xl font-bold text-white" style={{ backgroundColor: '#2d2df1' }}>
                 2
               </div>
-              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Preview</h3>
-              <p style={{ color: '#6b7280' }}>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 font-heading" style={{ color: '#001324' }}>Preview</h3>
+              <p className="text-sm sm:text-base" style={{ color: '#6b7280' }}>
                 Alvion plans steps with slippage/fee and risk indicators.
               </p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white" style={{ backgroundColor: '#2d2df1' }}>
+            <div className="text-center p-4 sm:p-6 sm:col-span-2 lg:col-span-1">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center text-lg sm:text-2xl font-bold text-white" style={{ backgroundColor: '#2d2df1' }}>
                 3
               </div>
-              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Confirm</h3>
-              <p style={{ color: '#6b7280' }}>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 font-heading" style={{ color: '#001324' }}>Confirm</h3>
+              <p className="text-sm sm:text-base" style={{ color: '#6b7280' }}>
                 Execute with one signature; the agent makes small rebalancing moves when you drift.
               </p>
             </div>
@@ -147,36 +148,36 @@ const Home: React.FC<HomeProps> = () => {
       </section>
 
       {/* ---------------- Integrations ---------------- */}
-      <section className="py-16 px-4">
+      <section className="py-8 sm:py-12 md:py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 font-heading" style={{ color: '#001324' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 font-heading" style={{ color: '#001324' }}>
             Integrations
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6 rounded-2xl border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
-              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            <div className="text-center p-4 sm:p-6 rounded-2xl border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4" style={{ color: '#2d2df1' }}>
                 <AiOutlineStar />
               </div>
-              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Liquid Staking</h3>
-              <p style={{ color: '#6b7280' }}>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 font-heading" style={{ color: '#001324' }}>Liquid Staking</h3>
+              <p className="text-sm sm:text-base" style={{ color: '#6b7280' }}>
                 xALGO, Folks Finance — Stay liquid while staking ALGO.
               </p>
             </div>
-            <div className="text-center p-6 rounded-2xl border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
-              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+            <div className="text-center p-4 sm:p-6 rounded-2xl border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4" style={{ color: '#2d2df1' }}>
                 <AiOutlineSend />
               </div>
-              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Swap Router</h3>
-              <p style={{ color: '#6b7280' }}>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 font-heading" style={{ color: '#001324' }}>Swap Router</h3>
+              <p className="text-sm sm:text-base" style={{ color: '#6b7280' }}>
                 Tinyman — Finds the best route in one tx, optimized price/yield.
               </p>
             </div>
-            <div className="text-center p-6 rounded-2xl border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
-              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+            <div className="text-center p-4 sm:p-6 rounded-2xl border sm:col-span-2 lg:col-span-1" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4" style={{ color: '#2d2df1' }}>
                 <BsWallet2 />
               </div>
-              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Wallet</h3>
-              <p style={{ color: '#6b7280' }}>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 font-heading" style={{ color: '#001324' }}>Wallet</h3>
+              <p className="text-sm sm:text-base" style={{ color: '#6b7280' }}>
                 Connect and sign with Pera Wallet.
               </p>
             </div>
@@ -185,45 +186,45 @@ const Home: React.FC<HomeProps> = () => {
       </section>
 
       {/* ---------------- Why Alvion ---------------- */}
-      <section className="py-16 px-4" style={{ backgroundColor: '#f8fafc' }}>
+      <section className="py-8 sm:py-12 md:py-16 px-4" style={{ backgroundColor: '#f8fafc' }}>
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 font-heading" style={{ color: '#001324' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 font-heading" style={{ color: '#001324' }}>
             Why Alvion?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            <div className="text-center p-4">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4" style={{ color: '#2d2df1' }}>
                 <AiOutlineRobot />
               </div>
-              <h3 className="text-lg font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Natural Language → Execution</h3>
-              <p className="text-sm" style={{ color: '#6b7280' }}>
+              <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 font-heading" style={{ color: '#001324' }}>Natural Language → Execution</h3>
+              <p className="text-xs sm:text-sm" style={{ color: '#6b7280' }}>
                 Execute complex DeFi flows with a single sentence.
               </p>
             </div>
-            <div className="text-center">
-              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+            <div className="text-center p-4">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4" style={{ color: '#2d2df1' }}>
                 <AiOutlineDeploymentUnit />
               </div>
-              <h3 className="text-lg font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Agentic Rebalancer</h3>
-              <p className="text-sm" style={{ color: '#6b7280' }}>
+              <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 font-heading" style={{ color: '#001324' }}>Agentic Rebalancer</h3>
+              <p className="text-xs sm:text-sm" style={{ color: '#6b7280' }}>
                 The AI agent guards your target allocation.
               </p>
             </div>
-            <div className="text-center">
-              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+            <div className="text-center p-4">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4" style={{ color: '#2d2df1' }}>
                 <AiOutlineSecurityScan />
               </div>
-              <h3 className="text-lg font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Security-First</h3>
-              <p className="text-sm" style={{ color: '#6b7280' }}>
+              <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 font-heading" style={{ color: '#001324' }}>Security-First</h3>
+              <p className="text-xs sm:text-sm" style={{ color: '#6b7280' }}>
                 PolicyGuard frames every move; fully auditable on-chain.
               </p>
             </div>
-            <div className="text-center">
-              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+            <div className="text-center p-4">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4" style={{ color: '#2d2df1' }}>
                 <BsArrowUpRightCircle />
               </div>
-              <h3 className="text-lg font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Built on Algorand</h3>
-              <p className="text-sm" style={{ color: '#6b7280' }}>
+              <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 font-heading" style={{ color: '#001324' }}>Built on Algorand</h3>
+              <p className="text-xs sm:text-sm" style={{ color: '#6b7280' }}>
                 Fast, low-cost, developer-friendly infrastructure.
               </p>
             </div>
@@ -232,24 +233,24 @@ const Home: React.FC<HomeProps> = () => {
       </section>
 
       {/* ---------------- AI Flow Panel ---------------- */}
-      <main className="flex-1 px-6 pb-12">
+      <main className="flex-1 px-4 sm:px-6 pb-8 sm:pb-12">
         <AIFlowPanel />
       </main>
 
       {/* ---------------- Footer ---------------- */}
       <footer
-        className="mt-auto px-6 py-10 bg-cover bg-center border-t"
+        className="mt-auto px-4 sm:px-6 py-6 sm:py-10 bg-cover bg-center border-t"
         style={{ backgroundImage: 'url(/background.png)', borderColor: '#e5e7eb' }}
       >
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <img src="/logo.svg" alt="Alvion" className="h-8 w-8" />
-            <span className="font-semibold font-serif-heading text-white" style={{ color: '#ffffff' }}>Alvion</span>
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <img src="/logo.svg" alt="Alvion" className="h-6 w-6 sm:h-8 sm:w-8" />
+            <span className="font-semibold font-serif-heading text-white text-sm sm:text-base" style={{ color: '#ffffff' }}>Alvion</span>
           </div>
-          <div className="text-sm text-white" style={{ color: '#ffffff' }}>
+          <div className="text-xs sm:text-sm text-white text-center" style={{ color: '#ffffff' }}>
             © {new Date().getFullYear()} Alvion • Manage DeFi with natural language.
           </div>
-          <div className="flex items-center gap-4 text-sm text-white" style={{ color: '#ffffff' }}>
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-white" style={{ color: '#ffffff' }}>
             <a className="hover:underline" href="#">Folks Finance</a>
             <a className="hover:underline" href="#">Tinyman Router</a>
             <a className="hover:underline" href="#">Pera Connect</a>
