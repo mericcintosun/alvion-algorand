@@ -37,22 +37,20 @@ const Home: React.FC<HomeProps> = () => {
   const { activeAddress } = useWallet()
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#242424', color: '#ffffff' }}>
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#ffffff', color: '#001324' }}>
       {/* ---------------- Navbar ---------------- */}
       <nav
         className="w-full px-6 py-4 flex items-center justify-between"
-        style={{ backgroundColor: '#2a2a2a', borderBottom: '1px solid #404040' }}
+        style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb' }}
       >
-        <h1
-          className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r"
-          style={{ backgroundImage: 'linear-gradient(to right, #f95001, #08c2b4)' }}
-        >
-          Algorand dApp Gateway
-        </h1>
+        <div className="flex items-center ">
+          <img src="/logo.svg" alt="Alvion" className="h-28 w-28" />
+         
+        </div>
         <div className="flex items-center gap-3">
           <button
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-300 hover:scale-105"
-            style={{ backgroundColor: '#5a0c6e' }}
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:scale-105"
+            style={{ backgroundColor: '#2d2df1' }}
             onClick={() => setOpenChatBotModal(true)}
           >
             <div className="text-lg">
@@ -61,8 +59,8 @@ const Home: React.FC<HomeProps> = () => {
             <span>AI Assistant</span>
           </button>
           <button
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-300 hover:scale-105"
-            style={{ backgroundColor: '#08c2b4' }}
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:scale-105"
+            style={{ backgroundColor: '#2d2df1' }}
             onClick={() => setOpenWalletModal(true)}
           >
             <div className="text-lg">
@@ -74,117 +72,191 @@ const Home: React.FC<HomeProps> = () => {
       </nav>
 
       {/* ---------------- Hero Section ---------------- */}
-      <header className="text-center py-8 px-4">
-        <h2
-          className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r mb-4"
-          style={{ backgroundImage: 'linear-gradient(to right, #f95001, #08c2b4)' }}
+      <header
+        className="text-center py-16 px-4 bg-cover bg-center"
+        style={{ backgroundImage: 'url(/background.png)' }}
+      >
+        <h1
+          className="text-5xl sm:text-6xl font-bold mb-6 font-serif-heading text-white"
+          style={{ color: '#ffffff' }}
         >
-          Explore Algorand on TestNet
+          Alvion
+        </h1>
+        <h2
+          className="text-2xl sm:text-3xl font-semibold mb-4 font-heading text-white"
+          style={{ color: '#ffffff' }}
+        >
+          Natural Language DeFi Copilot + Agentic Rebalancer
         </h2>
-        <p className="text-gray-400 max-w-2xl mx-auto">
-          This project demonstrates the core building blocks of an Algorand dApp. Connect your wallet, send transactions, mint NFTs, create
-          tokens, and try out contract interactions — all from a simple interface.
+        <p className="text-lg max-w-4xl mx-auto mb-8 text-white" style={{ color: '#ffffff' }}>
+          "Manage DeFi by talking in English. Say ‘Stake my ALGOs, keep risk under 5%’ and let the AI agent handle the rest."
         </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <button
+            className="px-8 py-4 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:opacity-90"
+            style={{ backgroundColor: '#2d2df1' }}
+            onClick={() => setOpenWalletModal(true)}
+          >
+            Connect Wallet (Pera)
+          </button>
+        </div>
+        <div className="mt-12 max-w-3xl mx-auto">
+          <p className="text-sm text-white" style={{ color: '#ffffff' }}>
+            Alvion plans DeFi flows in natural language on Algorand, executes with a single confirmation, and continuously maintains portfolio allocation.
+            It offers an agentic transaction experience aligned with Algorand’s agentic commerce vision.
+          </p>
+        </div>
       </header>
 
-      {/* ---------------- Features Grid ---------------- */}
-      <main className="flex-1 px-6 pb-12">
-        {/* AI Flow Panel - Main interface */}
-        <AIFlowPanel />
-
-        {activeAddress ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {/* Send Payment */}
-            <div className="p-6 bg-neutral-800 rounded-2xl border border-neutral-700 hover:border-cyan-500 transition">
-              <div className="text-4xl mb-3 text-green-400">
-                <AiOutlineSend />
+      {/* ---------------- How It Works ---------------- */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#f8fafc' }}>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 font-heading" style={{ color: '#001324' }}>
+            How It Works
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white" style={{ backgroundColor: '#2d2df1' }}>
+                1
               </div>
-              <h3 className="text-lg font-semibold mb-2">Send Payment</h3>
-              <p className="text-sm text-gray-400 mb-4">
-                Try sending 1 ALGO to any address on TestNet. This helps you understand wallet transactions.
+              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Write a command</h3>
+              <p style={{ color: '#6b7280' }}>
+                e.g. "Swap 0.5 ALGO to USDC", "Make my portfolio 60% ALGO / 40% USDC".
               </p>
-              <button
-                className="w-full py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white font-semibold transition"
-                onClick={() => setOpenPaymentModal(true)}
-              >
-                Open
-              </button>
             </div>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white" style={{ backgroundColor: '#2d2df1' }}>
+                2
+              </div>
+              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Preview</h3>
+              <p style={{ color: '#6b7280' }}>
+                Alvion plans steps with slippage/fee and risk indicators.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white" style={{ backgroundColor: '#2d2df1' }}>
+                3
+              </div>
+              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Confirm</h3>
+              <p style={{ color: '#6b7280' }}>
+                Execute with one signature; the agent makes small rebalancing moves when you drift.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Mint NFT */}
-            <div className="p-6 bg-neutral-800 rounded-2xl border border-neutral-700 hover:border-pink-500 transition">
-              <div className="text-4xl mb-3 text-pink-400">
+      {/* ---------------- Integrations ---------------- */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 font-heading" style={{ color: '#001324' }}>
+            Integrations
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6 rounded-2xl border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
                 <AiOutlineStar />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Mint NFT</h3>
-              <p className="text-sm text-gray-400 mb-4">
-                Upload an image and mint it as an NFT on Algorand with IPFS metadata stored via Pinata.
+              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Liquid Staking</h3>
+              <p style={{ color: '#6b7280' }}>
+                xALGO, Folks Finance — Stay liquid while staking ALGO.
               </p>
-              <button
-                className="w-full py-2 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-semibold transition"
-                onClick={() => setOpenMintModal(true)}
-              >
-                Open
-              </button>
             </div>
-
-            {/* Create Token */}
-            <div className="p-6 bg-neutral-800 rounded-2xl border border-neutral-700 hover:border-purple-500 transition">
-              <div className="text-4xl mb-3 text-purple-400">
-                <BsArrowUpRightCircle />
+            <div className="text-center p-6 rounded-2xl border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+                <AiOutlineSend />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Create Token (ASA)</h3>
-              <p className="text-sm text-gray-400 mb-4">
-                Spin up your own Algorand Standard Asset (ASA) in seconds. Perfect for testing token creation.
+              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Swap Router</h3>
+              <p style={{ color: '#6b7280' }}>
+                Tinyman — Finds the best route in one tx, optimized price/yield.
               </p>
-              <button
-                className="w-full py-2 rounded-lg bg-purple-500 hover:bg-purple-600 text-white font-semibold transition"
-                onClick={() => setOpenTokenModal(true)}
-              >
-                Open
-              </button>
             </div>
+            <div className="text-center p-6 rounded-2xl border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+                <BsWallet2 />
+              </div>
+              <h3 className="text-xl font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Wallet</h3>
+              <p style={{ color: '#6b7280' }}>
+                Connect and sign with Pera Wallet.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Contract Interactions */}
-            <div className="p-6 bg-neutral-800 rounded-2xl border border-neutral-700 hover:border-amber-500 transition">
-              <div className="text-4xl mb-3 text-amber-400">
+      {/* ---------------- Why Alvion ---------------- */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#f8fafc' }}>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 font-heading" style={{ color: '#001324' }}>
+            Why Alvion?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+                <AiOutlineRobot />
+              </div>
+              <h3 className="text-lg font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Natural Language → Execution</h3>
+              <p className="text-sm" style={{ color: '#6b7280' }}>
+                Execute complex DeFi flows with a single sentence.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
                 <AiOutlineDeploymentUnit />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Contract Interactions</h3>
-              <p className="text-sm text-gray-400 mb-4">
-                Interact with a simple Algorand smart contract to see how stateful dApps work on chain.
+              <h3 className="text-lg font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Agentic Rebalancer</h3>
+              <p className="text-sm" style={{ color: '#6b7280' }}>
+                The AI agent guards your target allocation.
               </p>
-              <button
-                className="w-full py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold transition"
-                onClick={() => setOpenAppCallsModal(true)}
-              >
-                Open
-              </button>
             </div>
-
-            {/* Policy Guard */}
-            <div className="p-6 bg-neutral-800 rounded-2xl border border-neutral-700 hover:border-red-500 transition">
-              <div className="text-4xl mb-3 text-red-400">
+            <div className="text-center">
+              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
                 <AiOutlineSecurityScan />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Policy Guard</h3>
-              <p className="text-sm text-gray-400 mb-4">
-                Deploy and manage security policies for transaction groups with fee limits, amount controls, and app restrictions.
+              <h3 className="text-lg font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Security-First</h3>
+              <p className="text-sm" style={{ color: '#6b7280' }}>
+                PolicyGuard frames every move; fully auditable on-chain.
               </p>
-              <button
-                className="w-full py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold transition"
-                onClick={() => setOpenPolicyGuardModal(true)}
-              >
-                Open
-              </button>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-4" style={{ color: '#2d2df1' }}>
+                <BsArrowUpRightCircle />
+              </div>
+              <h3 className="text-lg font-semibold mb-3 font-heading" style={{ color: '#001324' }}>Built on Algorand</h3>
+              <p className="text-sm" style={{ color: '#6b7280' }}>
+                Fast, low-cost, developer-friendly infrastructure.
+              </p>
             </div>
           </div>
-        ) : (
-          <div className="text-center text-gray-500 mt-12">
-            <p>⚡ Connect your wallet first to unlock the features below.</p>
-          </div>
-        )}
+        </div>
+      </section>
+
+      {/* ---------------- AI Flow Panel ---------------- */}
+      <main className="flex-1 px-6 pb-12">
+        <AIFlowPanel />
       </main>
+
+      {/* ---------------- Footer ---------------- */}
+      <footer
+        className="mt-auto px-6 py-10 bg-cover bg-center border-t"
+        style={{ backgroundImage: 'url(/background.png)', borderColor: '#e5e7eb' }}
+      >
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <img src="/logo.svg" alt="Alvion" className="h-8 w-8" />
+            <span className="font-semibold font-serif-heading text-white" style={{ color: '#ffffff' }}>Alvion</span>
+          </div>
+          <div className="text-sm text-white" style={{ color: '#ffffff' }}>
+            © {new Date().getFullYear()} Alvion • Manage DeFi with natural language.
+          </div>
+          <div className="flex items-center gap-4 text-sm text-white" style={{ color: '#ffffff' }}>
+            <a className="hover:underline" href="#">Folks Finance</a>
+            <a className="hover:underline" href="#">Tinyman Router</a>
+            <a className="hover:underline" href="#">Pera Connect</a>
+            <a className="hover:underline" href="#">AlgoKit TS</a>
+          </div>
+        </div>
+      </footer>
 
       {/* ---------------- Modals ---------------- */}
       <ConnectWallet openModal={openWalletModal} closeModal={() => setOpenWalletModal(false)} />

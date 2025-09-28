@@ -77,29 +77,29 @@ export default function PlanPreview({ plan, command }: PlanPreviewProps) {
   }
 
   return (
-    <div className="rounded-xl p-6 shadow-lg" style={{ backgroundColor: '#2a2a2a', border: '1px solid #404040' }}>
-      <div className="font-bold mb-4 text-lg flex items-center justify-between">
-        <div className="flex items-center gap-3" style={{ color: '#08c2b4' }}>
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#08c2b4' }}></div>
-          İşlem Önizleme
+    <div className="rounded-2xl p-6 shadow-lg border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+      <div className="font-bold mb-4 text-lg flex items-center justify-between font-heading">
+        <div className="flex items-center gap-3" style={{ color: '#2d2df1' }}>
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#2d2df1' }}></div>
+          Transaction Preview
         </div>
 
         {command && activeAddress && (
           <button
             onClick={handleExecute}
             disabled={isExecuting}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-white transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{ backgroundColor: isExecuting ? '#666' : '#08c2b4' }}
+            className="flex items-center gap-2 px-4 py-2 rounded-2xl font-semibold text-white transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ backgroundColor: isExecuting ? '#9ca3af' : '#2d2df1' }}
           >
             {isExecuting ? (
               <>
                 <AiOutlineLoading3Quarters className="animate-spin" />
-                <span>Çalıştırılıyor...</span>
+                <span>Executing...</span>
               </>
             ) : (
               <>
                 <AiOutlineCaretRight />
-                <span>İşlemi Çalıştır</span>
+                <span>Execute</span>
               </>
             )}
           </button>
@@ -116,7 +116,7 @@ export default function PlanPreview({ plan, command }: PlanPreviewProps) {
             <>
               <AiOutlineCheck className="text-green-400 text-xl" />
               <div>
-                <div className="text-green-400 font-semibold">İşlem Başarılı!</div>
+                <div className="text-green-400 font-semibold">Success!</div>
                 {executionResult.txId && (
                   <div className="text-sm text-gray-300 font-mono">
                     TX: {executionResult.txId.slice(0, 8)}...{executionResult.txId.slice(-8)}
@@ -138,23 +138,23 @@ export default function PlanPreview({ plan, command }: PlanPreviewProps) {
 
       <ol className="space-y-4">
         {plan.steps.map((s, i) => (
-          <li key={i} className="flex items-start gap-4 p-4 rounded-lg" style={{ backgroundColor: '#404040' }}>
+          <li key={i} className="flex items-start gap-4 p-4 rounded-2xl border" style={{ backgroundColor: '#f8fafc', borderColor: '#e5e7eb' }}>
             <div
               className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold"
-              style={{ backgroundColor: '#f95001' }}
+              style={{ backgroundColor: '#2d2df1' }}
             >
               {i + 1}
             </div>
             <div className="flex-1">
-              <div className="font-semibold mb-2 text-white">
-                {s.op === 'QUOTE' && '💰 Fiyat Sorgula'}
-                {s.op === 'STAKE' && '🔒 ALGO Stake Et'}
-                {s.op === 'UNSTAKE' && '🔓 ALGO Unstake Et'}
-                {s.op === 'SWAP' && '🔄 Swap Yap'}
-                {s.op === 'SET_POLICY' && '🛡️ Politika Ayarla'}
-                {s.op === 'PREVIEW' && '👁️ Önizleme'}
+              <div className="font-semibold mb-2" style={{ color: '#001324' }}>
+                {s.op === 'QUOTE' && 'Fiyat Sorgula'}
+                {s.op === 'STAKE' && 'ALGO Stake Et'}
+                {s.op === 'UNSTAKE' && 'ALGO Unstake Et'}
+                {s.op === 'SWAP' && 'Swap Yap'}
+                {s.op === 'SET_POLICY' && 'Politika Ayarla'}
+                {s.op === 'PREVIEW' && 'Önizleme'}
               </div>
-              <code className="text-sm bg-gray-800 text-gray-300 rounded-lg px-3 py-2 block whitespace-pre-wrap">
+              <code className="text-sm rounded-2xl px-3 py-2 block whitespace-pre-wrap" style={{ backgroundColor: '#e5e7eb', color: '#001324' }}>
                 {JSON.stringify(s.params, null, 2)}
               </code>
             </div>

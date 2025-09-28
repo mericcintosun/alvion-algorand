@@ -21,8 +21,8 @@ export default function PortfolioList({ address }: { address: string }) {
 
   if (loading) {
     return (
-      <div className="p-4 border border-base-300 rounded-lg bg-base-200">
-        <div className="flex items-center gap-2 text-base-content/60">
+      <div className="p-4 border rounded-2xl" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+        <div className="flex items-center gap-2" style={{ color: '#6b7280' }}>
           <AiOutlineLoading3Quarters className="animate-spin" />
           <span>Portföy dağılımı yükleniyor...</span>
         </div>
@@ -32,16 +32,16 @@ export default function PortfolioList({ address }: { address: string }) {
 
   if (error) {
     return (
-      <div className="p-4 border border-red-300 rounded-lg bg-red-50 dark:bg-red-900/20">
-        <div className="text-red-600 dark:text-red-400 text-sm">❌ {error}</div>
+      <div className="p-4 border rounded-2xl" style={{ backgroundColor: '#fef2f2', borderColor: '#fecaca' }}>
+        <div className="text-sm" style={{ color: '#dc2626' }}>❌ {error}</div>
       </div>
     )
   }
 
   if (!data || data.length === 0) {
     return (
-      <div className="p-4 border border-base-300 rounded-lg bg-base-200">
-        <div className="text-base-content/60 text-center">
+      <div className="p-4 border rounded-2xl" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+        <div className="text-center" style={{ color: '#6b7280' }}>
           <AiOutlinePieChart className="mx-auto text-2xl mb-2" />
           <div>Portföy dağılımı bulunamadı</div>
         </div>
@@ -64,37 +64,37 @@ export default function PortfolioList({ address }: { address: string }) {
     .sort((a, b) => b.percentage - a.percentage)
 
   return (
-    <div className="rounded-xl p-6 shadow-lg space-y-4" style={{ backgroundColor: '#2a2a2a', border: '1px solid #404040' }}>
-      <div className="flex items-center gap-3 font-bold text-lg" style={{ color: '#08c2b4' }}>
-        <div className="p-2 rounded-lg" style={{ backgroundColor: '#08c2b4' }}>
+    <div className="rounded-2xl p-6 shadow-lg space-y-4 border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+      <div className="flex items-center gap-3 font-bold text-lg font-heading" style={{ color: '#2d2df1' }}>
+        <div className="p-2 rounded-2xl" style={{ backgroundColor: '#2d2df1' }}>
           <AiOutlinePieChart className="text-white" />
         </div>
-        <span>Portföy Dağılımı</span>
+        <span>Portfolio Allocation</span>
       </div>
 
       <div className="space-y-4">
         {holdingsWithPercentage.map((h) => (
-          <div key={h.id} className="space-y-2">
+          <div key={h.id} className="space-y-2 p-4 rounded-2xl border" style={{ backgroundColor: '#f8fafc', borderColor: '#e5e7eb' }}>
             <div className="flex justify-between items-center text-sm">
-              <span className="font-semibold text-white">
+              <span className="font-semibold" style={{ color: '#001324' }}>
                 {h.name} {h.unitName && `(${h.unitName})`}
               </span>
-              <span className="font-bold text-lg" style={{ color: '#f95001' }}>
+              <span className="font-bold text-lg" style={{ color: '#2d2df1' }}>
                 {h.percentage.toFixed(1)}%
               </span>
             </div>
 
-            <div className="w-full rounded-full h-3" style={{ backgroundColor: '#404040' }}>
+            <div className="w-full rounded-full h-3" style={{ backgroundColor: '#e5e7eb' }}>
               <div
                 className="h-3 rounded-full transition-all duration-500"
                 style={{
                   width: `${Math.min(h.percentage, 100)}%`,
-                  background: 'linear-gradient(90deg, #f95001, #08c2b4)',
+                  backgroundColor: '#2d2df1',
                 }}
               />
             </div>
 
-            <div className="flex justify-between text-xs text-gray-400">
+            <div className="flex justify-between text-xs" style={{ color: '#6b7280' }}>
               <span>
                 {h.amount.toLocaleString(undefined, {
                   minimumFractionDigits: 0,

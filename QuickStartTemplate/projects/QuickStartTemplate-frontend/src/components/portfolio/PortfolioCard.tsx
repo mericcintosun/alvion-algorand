@@ -21,8 +21,8 @@ export default function PortfolioCard({ address }: { address: string }) {
 
   if (loading) {
     return (
-      <div className="p-4 border border-base-300 rounded-lg bg-base-200">
-        <div className="flex items-center gap-2 text-base-content/60">
+      <div className="p-4 border rounded-2xl" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+        <div className="flex items-center gap-2" style={{ color: '#6b7280' }}>
           <AiOutlineLoading3Quarters className="animate-spin" />
           <span>Portföy yükleniyor...</span>
         </div>
@@ -32,16 +32,16 @@ export default function PortfolioCard({ address }: { address: string }) {
 
   if (error) {
     return (
-      <div className="p-4 border border-red-300 rounded-lg bg-red-50 dark:bg-red-900/20">
-        <div className="text-red-600 dark:text-red-400 text-sm">❌ {error}</div>
+      <div className="p-4 border rounded-2xl" style={{ backgroundColor: '#fef2f2', borderColor: '#fecaca' }}>
+        <div className="text-sm" style={{ color: '#dc2626' }}>❌ {error}</div>
       </div>
     )
   }
 
   if (!data || data.length === 0) {
     return (
-      <div className="p-4 border border-base-300 rounded-lg bg-base-200">
-        <div className="text-base-content/60 text-center">
+      <div className="p-4 border rounded-2xl" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+        <div className="text-center" style={{ color: '#6b7280' }}>
           <AiOutlineWallet className="mx-auto text-2xl mb-2" />
           <div>Portföy bulunamadı</div>
         </div>
@@ -52,37 +52,37 @@ export default function PortfolioCard({ address }: { address: string }) {
   const total = data.reduce((s, h) => s + (h.id === 0 ? h.amount : h.amount), 0) // basit toplam (fiat yok)
 
   return (
-    <div className="rounded-xl p-6 shadow-lg space-y-4" style={{ backgroundColor: '#2a2a2a', border: '1px solid #404040' }}>
-      <div className="flex items-center gap-3 font-bold text-lg" style={{ color: '#08c2b4' }}>
-        <div className="p-2 rounded-lg" style={{ backgroundColor: '#08c2b4' }}>
+    <div className="rounded-2xl p-6 shadow-lg space-y-4 border" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+      <div className="flex items-center gap-3 font-bold text-lg font-heading" style={{ color: '#2d2df1' }}>
+        <div className="p-2 rounded-2xl" style={{ backgroundColor: '#2d2df1' }}>
           <AiOutlineWallet className="text-white" />
         </div>
-        <span>Portföy</span>
+        <span>Portfolio</span>
       </div>
 
       <ul className="space-y-3">
         {data.map((h) => (
-          <li key={h.id} className="flex justify-between items-center p-4 rounded-lg" style={{ backgroundColor: '#404040' }}>
+          <li key={h.id} className="flex justify-between items-center p-4 rounded-2xl border" style={{ backgroundColor: '#f8fafc', borderColor: '#e5e7eb' }}>
             <div className="flex flex-col">
-              <span className="font-semibold text-white">{h.name}</span>
-              {h.unitName && <span className="text-sm text-gray-400">({h.unitName})</span>}
+              <span className="font-semibold" style={{ color: '#001324' }}>{h.name}</span>
+              {h.unitName && <span className="text-sm" style={{ color: '#6b7280' }}>({h.unitName})</span>}
             </div>
             <div className="text-right">
-              <span className="font-bold text-lg" style={{ color: '#f95001' }}>
+              <span className="font-bold text-lg" style={{ color: '#2d2df1' }}>
                 {h.amount.toLocaleString(undefined, {
                   minimumFractionDigits: 0,
                   maximumFractionDigits: h.decimals > 6 ? 6 : h.decimals,
                 })}
               </span>
-              {h.id !== 0 && <div className="text-xs text-gray-400">ID: {h.id}</div>}
+              {h.id !== 0 && <div className="text-xs" style={{ color: '#6b7280' }}>ID: {h.id}</div>}
             </div>
           </li>
         ))}
       </ul>
 
-      <div className="text-sm text-gray-400 pt-3 border-t" style={{ borderColor: '#555555' }}>
-        Toplam varlık sayısı: <span className="font-semibold text-white">{data.length}</span> | Toplam (adet bazlı):{' '}
-        <span className="font-semibold" style={{ color: '#f95001' }}>
+      <div className="text-sm pt-3 border-t" style={{ color: '#6b7280', borderColor: '#e5e7eb' }}>
+        Total assets: <span className="font-semibold" style={{ color: '#001324' }}>{data.length}</span> | Total (units):{' '}
+        <span className="font-semibold" style={{ color: '#2d2df1' }}>
           {total.toLocaleString(undefined, { maximumFractionDigits: 2 })}
         </span>
       </div>

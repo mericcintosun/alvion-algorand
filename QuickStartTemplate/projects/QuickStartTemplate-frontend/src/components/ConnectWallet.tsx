@@ -24,10 +24,10 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
       id="connect_wallet_modal"
       className={`modal modal-bottom sm:modal-middle backdrop-blur-sm ${openModal ? 'modal-open' : ''}`}
     >
-      <div className="modal-box bg-neutral-800 text-gray-100 rounded-2xl shadow-xl border border-neutral-700 p-6">
-        <h3 className="flex items-center gap-3 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-500 mb-6">
-          <div className="text-3xl"><BsWallet2 /></div>
-          Select wallet provider
+      <div className="modal-box rounded-2xl shadow-xl border p-6" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
+        <h3 className="flex items-center gap-3 text-2xl font-bold mb-6 font-heading" style={{ color: '#001324' }}>
+          <div className="text-3xl" style={{ color: '#2d2df1' }}><BsWallet2 /></div>
+          Select a Wallet
         </h3>
 
         <div className="space-y-4">
@@ -42,11 +42,18 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
             wallets?.map((wallet) => (
               <button
                 data-test-id={`${wallet.id}-connect`}
-                className={`
-                  w-full flex items-center gap-4 p-4 rounded-xl transition-all duration-300 transform active:scale-95
-                  bg-neutral-700 hover:bg-neutral-600 border border-transparent
-                  focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-neutral-800
-                `}
+                className="w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 transform active:scale-95 border focus:outline-none focus:ring-2 focus:ring-offset-2"
+                style={{
+                  backgroundColor: '#f8fafc',
+                  borderColor: '#e5e7eb',
+                  color: '#001324',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f1f5f9'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f8fafc'
+                }}
                 key={`provider-${wallet.id}`}
                 onClick={() => {
                   return wallet.connect()
@@ -63,7 +70,7 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
                   {isKmd(wallet) ? 'LocalNet Wallet' : wallet.metadata.name}
                 </span>
                 {wallet.isActive && (
-                  <div className="text-xl text-cyan-400"><BsCheckCircleFill /></div>
+                  <div className="text-xl" style={{ color: '#2d2df1' }}><BsCheckCircleFill /></div>
                 )}
               </button>
             ))}
@@ -72,7 +79,12 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
         <div className="modal-action mt-6">
           <button
             data-test-id="close-wallet-modal"
-            className="btn w-full sm:w-auto flex-1 bg-neutral-700 hover:bg-neutral-600 border-none text-gray-300 rounded-xl"
+            className="btn w-full sm:w-auto flex-1 rounded-2xl border-2"
+            style={{ 
+              backgroundColor: '#ffffff', 
+              borderColor: '#2d2df1', 
+              color: '#2d2df1' 
+            }}
             onClick={() => {
               closeModal()
             }}
@@ -81,7 +93,8 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
           </button>
           {activeAddress && (
             <button
-              className="btn w-full sm:w-auto flex-1 bg-red-600 hover:bg-red-500 border-none text-white rounded-xl"
+              className="btn w-full sm:w-auto flex-1 rounded-2xl text-white"
+              style={{ backgroundColor: '#dc2626' }}
               data-test-id="logout"
               onClick={async () => {
                 if (wallets) {

@@ -260,10 +260,10 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
     <>
       {openModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-          <div className="bg-base-100 text-base-content rounded-lg shadow-xl border border-base-300 p-6 max-w-4xl w-full mx-4 h-[80vh] flex flex-col">
+          <div className="rounded-2xl shadow-xl border p-6 max-w-4xl w-full mx-4 h-[80vh] flex flex-col" style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}>
             {/* Header */}
-            <div className="flex items-center justify-between mb-4 pb-4 border-b border-base-300">
-              <h3 className="flex items-center gap-3 text-2xl font-bold text-primary">
+            <div className="flex items-center justify-between mb-4 pb-4 border-b" style={{ borderColor: '#e5e7eb' }}>
+              <h3 className="flex items-center gap-3 text-2xl font-bold font-heading" style={{ color: '#2d2df1' }}>
                 <AiOutlineRobot className="text-3xl" />
                 AI Assistant
               </h3>
@@ -273,15 +273,15 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
                   title={backendConnected ? 'Backend Connected' : 'Backend Disconnected'}
                 />
                 {activeAddress && (
-                  <div className="flex items-center gap-1 text-xs text-green-500">
+                  <div className="flex items-center gap-1 text-xs" style={{ color: '#2d2df1' }}>
                     <AiOutlineWallet />
                     <span>Wallet Connected</span>
                   </div>
                 )}
-                <button onClick={clearChat} className="text-sm text-base-content/60 hover:text-primary transition-colors">
+                <button onClick={clearChat} className="text-sm transition-colors" style={{ color: '#6b7280' }}>
                   Clear Chat
                 </button>
-                <button onClick={() => setModalState(false)} className="text-base-content/60 hover:text-primary transition-colors">
+                <button onClick={() => setModalState(false)} className="transition-colors" style={{ color: '#6b7280' }}>
                   ✕
                 </button>
               </div>
@@ -292,17 +292,21 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
               {messages.map((message) => (
                 <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div
-                    className={`max-w-[80%] p-3 rounded-lg ${
-                      message.type === 'user' ? 'bg-primary text-primary-content' : 'bg-base-200 text-base-content'
+                    className={`max-w-[80%] p-3 rounded-2xl ${
+                      message.type === 'user' ? 'text-white' : ''
                     }`}
+                    style={{
+                      backgroundColor: message.type === 'user' ? '#2d2df1' : '#f8fafc',
+                      color: message.type === 'user' ? '#ffffff' : '#001324'
+                    }}
                   >
                     <div className="flex items-start gap-2">
-                      {message.type === 'assistant' && <AiOutlineRobot className="text-lg mt-1 flex-shrink-0" />}
+                      {message.type === 'assistant' && <AiOutlineRobot className="text-lg mt-1 flex-shrink-0" style={{ color: '#2d2df1' }} />}
                       {message.type === 'user' && <AiOutlineUser className="text-lg mt-1 flex-shrink-0" />}
                       <div className="flex-1">
                         <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                         {isStreaming && message.type === 'assistant' && messages[messages.length - 1]?.id === message.id && (
-                          <span className="inline-block w-2 h-4 bg-primary animate-pulse ml-1" />
+                          <span className="inline-block w-2 h-4 animate-pulse ml-1" style={{ backgroundColor: '#2d2df1' }} />
                         )}
                       </div>
                     </div>
@@ -313,14 +317,19 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
             </div>
 
             {/* Input */}
-            <div className="border-t border-base-300 pt-4">
+            <div className="pt-4" style={{ borderColor: '#e5e7eb', borderTop: '1px solid' }}>
               <div className="flex gap-2">
                 <textarea
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Ask me about Algorand, DeFi, smart contracts, NFTs... or try '1 algo stake et'"
-                  className="flex-1 p-3 bg-base-200 text-base-content border border-base-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary rounded-lg resize-none"
+                  className="flex-1 p-3 border rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-offset-2"
+                  style={{
+                    backgroundColor: '#f8fafc',
+                    borderColor: '#e5e7eb',
+                    color: '#001324',
+                  }}
                   rows={2}
                   disabled={isLoading || isStreaming}
                 />
@@ -328,20 +337,22 @@ const ChatBot = ({ openModal, setModalState }: ChatBotProps) => {
                   <button
                     onClick={() => handleSendMessage(false)}
                     disabled={!inputMessage.trim() || isLoading || isStreaming || isExecutingDeFi}
-                    className="btn btn-primary text-white rounded-lg border-none font-semibold transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="rounded-2xl border-none font-semibold transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2"
+                    style={{ backgroundColor: '#2d2df1' }}
                   >
                     {isLoading || isExecutingDeFi ? <AiOutlineLoading3Quarters className="animate-spin" /> : <AiOutlineSend />}
                   </button>
                   <button
                     onClick={() => handleSendMessage(true)}
                     disabled={!inputMessage.trim() || isLoading || isStreaming || isExecutingDeFi}
-                    className="btn btn-secondary text-white rounded-lg border-none font-semibold transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-xs"
+                    className="rounded-2xl border-none font-semibold transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-xs px-4 py-2"
+                    style={{ backgroundColor: '#6b7280' }}
                   >
                     {isStreaming ? <AiOutlineLoading3Quarters className="animate-spin" /> : 'Stream'}
                   </button>
                 </div>
               </div>
-              <p className="text-xs text-base-content/60 mt-2">Press Enter to send, Shift+Enter for new line</p>
+              <p className="text-xs mt-2" style={{ color: '#6b7280' }}>Press Enter to send, Shift+Enter for new line</p>
             </div>
           </div>
         </div>
